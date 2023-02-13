@@ -1,5 +1,16 @@
 # Batch Exporting NPC
 
+
+todo - I neeed to update this readme, it is mostly still relevent however I have renamed some of the code and neeed to explain some bits.
+
+
+
+
+
+------
+
+### Old Readme
+
 > Note: You need about 30GB of disk space for all NPCs
 
 This is the most ghetto and complicated export because it is important that we export each NPC animation separately, this will make things a lot easier.
