@@ -230,15 +230,28 @@ namespace FFXIBatchApp
 			ConsoleLog(">> Active extract stopped!");
         }
 
+		/// <summary>
+		/// Can be called within the thread to abort itself.
+		/// </summary>
+		private void StopActiveThreadInternal()
+		{
+			ConsoleLog($">> Stopping thread internally...");
+			Thread.CurrentThread.Abort();
+			ActiveThreadRunning = false;
+		}
+
         /// <summary>
         /// Wait for the active window to be said windowTitle, improves timing of send key flows.
         /// </summary>
         /// <param name="windowTitle"></param>
         /// <returns></returns>
-        private bool WaitForActiveWindow(string windowTitle)
+        private bool WaitForActiveWindow(string windowTitle, int waitInSeconds = 60, bool stopOnError = false)
         {
-            // Will wait for a max of 30 seconds.
-            for (int i = 0; i <= 60; i++)
+			// 2x because we delay 1/2
+			int delay = waitInSeconds * 2;
+
+			// Will wait for a max of 30 seconds.
+			for (int i = 0; i <= delay; i++)
             {
                 if (GetActiveWindowTitle() == windowTitle)
                 {
@@ -250,6 +263,11 @@ namespace FFXIBatchApp
 
             ConsoleLog($"!! Error: Could not detect the Window: {windowTitle} - Current active window: {GetActiveWindowTitle()}");
 
+			if (stopOnError)
+			{
+				StopActiveThreadInternal();
+			}
+
             return false;
         }
 
@@ -258,10 +276,13 @@ namespace FFXIBatchApp
 		/// </summary>
 		/// <param name="name"></param>
 		/// <returns></returns>
-		private bool WaitForProcess(string name)
+		private bool WaitForProcess(string name, int waitInSeconds = 60, bool stopOnError = false)
 		{
+			// 2x because we delay 1/2
+			int delay = waitInSeconds * 2;
+
 			// Will wait for a max of 30 seconds.
-			for (int i = 0; i <= 60; i++)
+			for (int i = 0; i <= delay; i++)
 			{
 				if (IsProcessRunning("Noesis"))
 				{
@@ -272,6 +293,11 @@ namespace FFXIBatchApp
 			}
 
 			ConsoleLog($"!! Error: Could not detect the open process: {name}");
+
+			if (stopOnError)
+			{
+				StopActiveThreadInternal();
+			}
 
 			return false;
 		}
@@ -698,7 +724,8 @@ namespace FFXIBatchApp
 					SendKey("{ENTER}", 250, "Export Media");
 
 					// The complete window is called Noesis
-					if (WaitForActiveWindow("Noesis"))
+					// We wait up to 5 mins here because it could take that long
+					if (WaitForActiveWindow("Noesis", 300, true))
 					{
 						Thread.Sleep(50);
 
