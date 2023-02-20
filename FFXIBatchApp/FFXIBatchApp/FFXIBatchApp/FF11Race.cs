@@ -23,13 +23,13 @@ namespace FFXIBatchApp
 		// They match the races index 1:1, so the 1st is Elvaan Female.
 		static string[] skeletons =
 		{
-			"42\\4",
-			"37\\31",
-			"56\\59",
-			"32\\58",
-			"27\\82",
-			"51\\89",
-			"46\\93"
+			"\\42\\4",
+			"\\37\\31",
+			"\\56\\59",
+			"\\32\\58",
+			"\\27\\82",
+			"\\51\\89",
+			"\\46\\93"
 		};
 
 		// These are the race names of the AltanaPC Folder

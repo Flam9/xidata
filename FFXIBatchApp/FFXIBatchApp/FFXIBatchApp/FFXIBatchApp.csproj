@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="Logger.cs" />
     <Compile Include="FF11LookDecoder.cs" />
+    <Compile Include="NoesisConverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
@@ -874,13 +875,27 @@
     <EmbeddedResource Include="Resources\LookData\LookTable.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <None Include="Resources\NoesisAnimDatsetTemplates\Animations_Elvaan_Female.template" />
-    <None Include="Resources\NoesisAnimDatsetTemplates\Animations_Elvaan_Male.template" />
-    <None Include="Resources\NoesisAnimDatsetTemplates\Animations_Galka.template" />
-    <None Include="Resources\NoesisAnimDatsetTemplates\Animations_Hume_Female.template" />
-    <None Include="Resources\NoesisAnimDatsetTemplates\Animations_Hume_Male.template" />
-    <None Include="Resources\NoesisAnimDatsetTemplates\Animations_Mithra.template" />
-    <None Include="Resources\NoesisAnimDatsetTemplates\Animations_Tarutaru.template" />
+    <EmbeddedResource Include="Resources\DatsetTemplate\Animations_Elvaan_Female.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DatsetTemplate\Animations_Elvaan_Male.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DatsetTemplate\Animations_Galka.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DatsetTemplate\Animations_Hume_Female.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DatsetTemplate\Animations_Hume_Male.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DatsetTemplate\Animations_Mithra.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DatsetTemplate\Animations_Tarutaru.template">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -928,6 +943,27 @@
     <None Include="Resources\bg4.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\DatsetAnims\Anims_Elvaan_Female_Basic.ff11datset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DatsetAnims\Anims_Elvaan_Male_Basic.ff11datset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DatsetAnims\Anims_Galka_Basic.ff11datset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DatsetAnims\Anims_Hume_Female_Basic.ff11datset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DatsetAnims\Anims_Hume_Male_Basic.ff11datset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DatsetAnims\Anims_Mithra_Basic.ff11datset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DatsetAnims\Anims_Tarutaru_Basic.ff11datset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="Resources\logo1.png" />
   </ItemGroup>
   <ItemGroup>
