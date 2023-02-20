@@ -554,8 +554,11 @@ namespace FFXIBatchApp
 					}
 
 					// Grab the correct race
-					string race = FF11Race.GetRacesLook()[lookdata["Race"]];
-					race = race.Split('|')[0];
+					string racedata = FF11Race.GetRacesLook()[lookdata["Race"]];
+					string racename = racedata.Split('|')[0];
+
+					// add race omfp
+					looknpc["Race"] = racedata;
 
 					// find the models!
 					List<string> slots = new List<string>() { "Face", "Head", "Body", "Hands", "Legs", "Feet", "Main", "Sub", "Range" };
@@ -564,14 +567,7 @@ namespace FFXIBatchApp
 					{
 						int slotModelId = lookdata[slot];
 
-						// Skip if not set
-						if (slotModelId == 0)
-						{
-							looknpc[slot] = "";
-							continue;
-						}
-
-						string[] modelData = FF11LookDecoder.GetModelDataFromModelId(race, slot, slotModelId);
+						string[] modelData = FF11LookDecoder.GetModelDataFromModelId(racename, slot, slotModelId);
 
 						if (modelData == null)
 						{

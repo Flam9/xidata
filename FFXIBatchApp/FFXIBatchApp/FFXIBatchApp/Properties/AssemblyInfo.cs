@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FFXIBatchApp")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("FFXI Batch Export")]
+[assembly: AssemblyDescription("A tool to help batch export FFXI data via Noesis.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("FFXIBatchApp")]

@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using Microsoft.VisualBasic.FileIO;
 using static System.Net.Mime.MediaTypeNames;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 
 namespace FFXIBatchApp
 {
@@ -27,6 +28,7 @@ namespace FFXIBatchApp
 
 			// Build everything to make batch exports easier!
 			BuildAnimDatSets();
+			BuildNpcLookDatSets();
 		}
 
 		/// <summary>
@@ -48,9 +50,14 @@ namespace FFXIBatchApp
 			if (!Directory.Exists(directoryPath))
 			{
 				Directory.CreateDirectory(directoryPath);
+				Directory.CreateDirectory($"{directoryPath}/Anims");
+				Directory.CreateDirectory($"{directoryPath}/NPC");
 			}
 		}
 
+		/// <summary>
+		/// This loads up Anims and builds out a Noesis FF11 Datset file for each animation type.
+		/// </summary>
 		private void BuildAnimDatSets()
 		{
 			string filename = $"{savepath1}/anims_2.json";
@@ -92,12 +99,13 @@ namespace FFXIBatchApp
 					// All backslashes must be forward slashes
 					contents = contents.Replace("\\", "/");
 
-					// the save to folder
-					string saveTo = $"{savepath2}\\Anims_{raceName}_Basic.ff11datset";
+					// the save to path
+					string saveTo = $"{savepath2}\\Anims\\{raceName}";
+					Directory.CreateDirectory(saveTo);					
+					saveTo = $"{saveTo}\\Basic.ff11datset";
 					File.WriteAllText(saveTo, contents);
 
 					ConsoleLog($"-- {raceName} - Basic");
-
 					results[raceName].Add($"Basic|{saveTo}");
 				}
 			}
@@ -105,10 +113,9 @@ namespace FFXIBatchApp
 			// Now build all other anims
 
 			// Load the JSON
-			string animJson = File.ReadAllText($"{savepath1}\\anims_1.json");
-			var data = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, dynamic>>>(animJson);
+			string jsonfile = File.ReadAllText($"{savepath1}\\anims_1.json");
+			var data = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, dynamic>>>(jsonfile);
 
-		
 			// And we begin
 			foreach (var race in data)
 			{
@@ -150,13 +157,19 @@ namespace FFXIBatchApp
 						// All backslashes must be forward slashes
 						contents = contents.Replace("\\", "/");
 
-						// the save to folder
-						string saveTo = $"{savepath2}\\Anims_{raceName}_{animType}.ff11datset";
-						File.WriteAllText(saveTo, contents);
-
-						ConsoleLog($"-- {raceName} - {animType}");
-
+						// the save to path
+						string saveTo = $"{savepath2}\\Anims\\{raceName}";
+						Directory.CreateDirectory(saveTo);
+						saveTo = $"{saveTo}\\{animType}.ff11datset";
 						results[raceName].Add($"{animType}|{saveTo}");
+
+						if (File.Exists(saveTo))
+						{
+							continue;
+						}
+
+						File.WriteAllText(saveTo, contents);
+						ConsoleLog($"-- {raceName} - {animType}");
 					}
 				}
 			}
@@ -166,6 +179,89 @@ namespace FFXIBatchApp
 			File.WriteAllText(filePath, json);
 
 			ConsoleLog("- BuildAnimDatSets Complete!");
+		}
+
+		/// <summary>
+		/// This loads up the NPC2 (look data) and builds out Noesis FF11 Datset files for each NPC.
+		/// </summary>
+		private void BuildNpcLookDatSets()
+		{
+			string filename = $"{savepath1}/npc_3.json";
+
+			// Already built, skip.
+			if (File.Exists(filename))
+			{
+				return;
+			}
+
+			ConsoleLog("- BuildNpcLookDatSets");
+
+			// A list to save to so we can quickly process these in bulk
+			List<string> results = new List<string>();
+
+			// Grab FFXI Path
+			string ffxiPath = Settings.GetSetting("PathFFXI");
+
+			// Load the JSON
+			string jsonfile = File.ReadAllText($"{savepath1}\\npc_2.json");
+			var data = JsonConvert.DeserializeObject<List<dynamic>>(jsonfile);
+			
+			// There are thousands of npcs, so we'll just note the total
+			int buildCount = 0;
+
+			// And we begin
+			foreach (var npc in data)
+			{
+				// grab what we neeeed
+				string npcRace = (string)npc.Race;
+
+				string datset = "NOESIS_FF11_DAT_SET\n";
+				datset += $"setPathAbs \"{ffxiPath}\\\"\n";
+
+				// set skeleton
+				string skeleton = npcRace.Split('|')[1];
+				datset += $"dat \"__skeleton\" \"ROM{skeleton}.DAT\"\n";
+
+				// Loop through parts
+				List<string> slots = new List<string>() { "Face", "Head", "Body", "Hands", "Legs", "Feet", "Main", "Sub", "Range" };
+
+				foreach (string slot in slots)
+				{
+					string slotdata = (string)npc[slot];
+
+					// slot empty.
+					if (slotdata.Length == 0) { continue; }
+
+					// format: ID|ModelID|DatPath
+					string datpath = slotdata.Split('|')[2];
+					datset += $"dat \"{slot}\" \"ROM{datpath}.DAT\"\n";
+				}
+
+				// All backslashes must be forward slashes
+				datset = datset.Replace("\\", "/");
+
+				// the save to path
+				string saveTo = $"{savepath2}\\NPC\\{npc.Zone}";
+				Directory.CreateDirectory(saveTo);
+				saveTo = $"{saveTo}\\{npc.ID}_{npc.Name}.ff11datset";
+				results.Add($"{npc.ID}|{npc.Name}|{npc.Zone}|{saveTo}");
+
+				if (File.Exists(saveTo))
+				{
+					continue;
+				}
+
+				File.WriteAllText(saveTo, datset);
+				buildCount++;
+			}
+
+			ConsoleLog($"-- Built {buildCount} NPC Datsets!");
+
+			string json = JsonConvert.SerializeObject(results, Formatting.Indented);
+			string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
+			File.WriteAllText(filePath, json);
+
+			ConsoleLog("- BuildNpcLookDatSets Complete!");
 		}
 	}
 }

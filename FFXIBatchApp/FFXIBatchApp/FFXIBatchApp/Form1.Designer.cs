@@ -38,7 +38,6 @@ namespace FFXIBatchApp
 			this.label3 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.PathFFXI = new System.Windows.Forms.TextBox();
-			this.label1 = new System.Windows.Forms.Label();
 			this.StartNpcExtract = new System.Windows.Forms.Button();
 			this.LogBox = new System.Windows.Forms.RichTextBox();
 			this.LogTimer = new System.Windows.Forms.Timer(this.components);
@@ -68,9 +67,18 @@ namespace FFXIBatchApp
 			this.groupBox5 = new System.Windows.Forms.GroupBox();
 			this.label13 = new System.Windows.Forms.Label();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
+			this.label1 = new System.Windows.Forms.Label();
+			this.NoesisArgsNPC = new System.Windows.Forms.TextBox();
+			this.label22 = new System.Windows.Forms.Label();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.label7 = new System.Windows.Forms.Label();
 			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.label19 = new System.Windows.Forms.Label();
+			this.NoesisArgsAnimations = new System.Windows.Forms.TextBox();
+			this.StartAnimationsExtract = new System.Windows.Forms.Button();
+			this.label20 = new System.Windows.Forms.Label();
+			this.groupBox7 = new System.Windows.Forms.GroupBox();
+			this.label21 = new System.Windows.Forms.Label();
 			this.tabPage6 = new System.Windows.Forms.TabPage();
 			this.label18 = new System.Windows.Forms.Label();
 			this.label17 = new System.Windows.Forms.Label();
@@ -78,12 +86,8 @@ namespace FFXIBatchApp
 			this.PathNoesis = new System.Windows.Forms.TextBox();
 			this.label6 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.label19 = new System.Windows.Forms.Label();
-			this.NoesisArgsAnimations = new System.Windows.Forms.TextBox();
-			this.StartAnimationsExtract = new System.Windows.Forms.Button();
-			this.label20 = new System.Windows.Forms.Label();
-			this.groupBox7 = new System.Windows.Forms.GroupBox();
-			this.label21 = new System.Windows.Forms.Label();
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
+			this.StartNpcCommonExtract = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.panel1.SuspendLayout();
 			this.tabControl1.SuspendLayout();
@@ -96,10 +100,10 @@ namespace FFXIBatchApp
 			this.tabPage4.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.tabPage5.SuspendLayout();
+			this.groupBox7.SuspendLayout();
 			this.tabPage6.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox1.SuspendLayout();
-			this.groupBox7.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// label5
@@ -176,19 +180,6 @@ namespace FFXIBatchApp
 			this.PathFFXI.TabIndex = 0;
 			this.PathFFXI.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PathFFXI_SelectPath);
 			// 
-			// label1
-			// 
-			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.label1.BackColor = System.Drawing.Color.Transparent;
-			this.label1.Font = new System.Drawing.Font("Segoe UI", 10F);
-			this.label1.Location = new System.Drawing.Point(13, 139);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(609, 75);
-			this.label1.TabIndex = 1;
-			this.label1.Text = "Will dump all the main story NPCs with their respective animations. This uses you" +
-    "r keyboard.";
-			// 
 			// StartNpcExtract
 			// 
 			this.StartNpcExtract.BackColor = System.Drawing.Color.YellowGreen;
@@ -197,9 +188,9 @@ namespace FFXIBatchApp
 			this.StartNpcExtract.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.StartNpcExtract.Location = new System.Drawing.Point(13, 87);
 			this.StartNpcExtract.Name = "StartNpcExtract";
-			this.StartNpcExtract.Size = new System.Drawing.Size(182, 39);
+			this.StartNpcExtract.Size = new System.Drawing.Size(224, 39);
 			this.StartNpcExtract.TabIndex = 0;
-			this.StartNpcExtract.Text = "Start NPC Exporting";
+			this.StartNpcExtract.Text = "Start NPC Main Exporting";
 			this.StartNpcExtract.UseVisualStyleBackColor = false;
 			this.StartNpcExtract.Click += new System.EventHandler(this.StartNpcExtract_Click);
 			// 
@@ -547,9 +538,12 @@ namespace FFXIBatchApp
 			// 
 			// tabPage4
 			// 
+			this.tabPage4.Controls.Add(this.StartNpcCommonExtract);
+			this.tabPage4.Controls.Add(this.label1);
+			this.tabPage4.Controls.Add(this.NoesisArgsNPC);
+			this.tabPage4.Controls.Add(this.label22);
 			this.tabPage4.Controls.Add(this.StartNpcExtract);
 			this.tabPage4.Controls.Add(this.groupBox3);
-			this.tabPage4.Controls.Add(this.label1);
 			this.tabPage4.Location = new System.Drawing.Point(4, 33);
 			this.tabPage4.Name = "tabPage4";
 			this.tabPage4.Padding = new System.Windows.Forms.Padding(10);
@@ -557,6 +551,39 @@ namespace FFXIBatchApp
 			this.tabPage4.TabIndex = 3;
 			this.tabPage4.Text = "NPC";
 			this.tabPage4.UseVisualStyleBackColor = true;
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.Location = new System.Drawing.Point(13, 241);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(133, 20);
+			this.label1.TabIndex = 30;
+			this.label1.Text = "Noesis Arguments";
+			// 
+			// NoesisArgsNPC
+			// 
+			this.NoesisArgsNPC.Font = new System.Drawing.Font("Segoe UI", 10F);
+			this.NoesisArgsNPC.Location = new System.Drawing.Point(17, 264);
+			this.NoesisArgsNPC.Name = "NoesisArgsNPC";
+			this.NoesisArgsNPC.Size = new System.Drawing.Size(559, 25);
+			this.NoesisArgsNPC.TabIndex = 29;
+			this.NoesisArgsNPC.Text = "-ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11nolodchange " +
+    " -ff11optimizegeo -ff11keepnames -fbxtexrelonly -fbxtexext .png -rotate 180 0 0 " +
+    "-scale 120";
+			// 
+			// label22
+			// 
+			this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.label22.BackColor = System.Drawing.Color.Transparent;
+			this.label22.Font = new System.Drawing.Font("Segoe UI", 10F);
+			this.label22.Location = new System.Drawing.Point(13, 139);
+			this.label22.Name = "label22";
+			this.label22.Size = new System.Drawing.Size(609, 93);
+			this.label22.TabIndex = 28;
+			this.label22.Text = "TODO - WRITE THIS";
 			// 
 			// groupBox3
 			// 
@@ -597,6 +624,78 @@ namespace FFXIBatchApp
 			this.tabPage5.TabIndex = 4;
 			this.tabPage5.Text = "Animations";
 			this.tabPage5.UseVisualStyleBackColor = true;
+			// 
+			// label19
+			// 
+			this.label19.AutoSize = true;
+			this.label19.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label19.Location = new System.Drawing.Point(13, 241);
+			this.label19.Name = "label19";
+			this.label19.Size = new System.Drawing.Size(133, 20);
+			this.label19.TabIndex = 27;
+			this.label19.Text = "Noesis Arguments";
+			// 
+			// NoesisArgsAnimations
+			// 
+			this.NoesisArgsAnimations.Font = new System.Drawing.Font("Segoe UI", 10F);
+			this.NoesisArgsAnimations.Location = new System.Drawing.Point(17, 264);
+			this.NoesisArgsAnimations.Name = "NoesisArgsAnimations";
+			this.NoesisArgsAnimations.Size = new System.Drawing.Size(559, 25);
+			this.NoesisArgsAnimations.TabIndex = 26;
+			this.NoesisArgsAnimations.Text = "-ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11nolodchange " +
+    " -ff11optimizegeo -ff11keepnames -fbxtexrelonly -fbxtexext .png -rotate 180 0 27" +
+    "0 -scale 60";
+			// 
+			// StartAnimationsExtract
+			// 
+			this.StartAnimationsExtract.BackColor = System.Drawing.Color.YellowGreen;
+			this.StartAnimationsExtract.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.StartAnimationsExtract.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.StartAnimationsExtract.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.StartAnimationsExtract.Location = new System.Drawing.Point(13, 87);
+			this.StartAnimationsExtract.Name = "StartAnimationsExtract";
+			this.StartAnimationsExtract.Size = new System.Drawing.Size(233, 39);
+			this.StartAnimationsExtract.TabIndex = 24;
+			this.StartAnimationsExtract.Text = "Start Animations Exporting";
+			this.StartAnimationsExtract.UseVisualStyleBackColor = false;
+			this.StartAnimationsExtract.Click += new System.EventHandler(this.StartAnimationsExtract_Click);
+			// 
+			// label20
+			// 
+			this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.label20.BackColor = System.Drawing.Color.Transparent;
+			this.label20.Font = new System.Drawing.Font("Segoe UI", 10F);
+			this.label20.Location = new System.Drawing.Point(13, 139);
+			this.label20.Name = "label20";
+			this.label20.Size = new System.Drawing.Size(609, 93);
+			this.label20.TabIndex = 25;
+			this.label20.Text = resources.GetString("label20.Text");
+			// 
+			// groupBox7
+			// 
+			this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox7.Controls.Add(this.label21);
+			this.groupBox7.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.groupBox7.Location = new System.Drawing.Point(13, 13);
+			this.groupBox7.Name = "groupBox7";
+			this.groupBox7.Padding = new System.Windows.Forms.Padding(5);
+			this.groupBox7.Size = new System.Drawing.Size(609, 58);
+			this.groupBox7.TabIndex = 23;
+			this.groupBox7.TabStop = false;
+			this.groupBox7.Text = "Note";
+			// 
+			// label21
+			// 
+			this.label21.AutoSize = true;
+			this.label21.Font = new System.Drawing.Font("Segoe UI", 10.5F);
+			this.label21.ForeColor = System.Drawing.Color.Brown;
+			this.label21.Location = new System.Drawing.Point(8, 26);
+			this.label21.Name = "label21";
+			this.label21.Size = new System.Drawing.Size(331, 19);
+			this.label21.TabIndex = 0;
+			this.label21.Text = "Controls your PC as a \"Open\" dialog needs handling.";
 			// 
 			// tabPage6
 			// 
@@ -687,77 +786,19 @@ namespace FFXIBatchApp
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Support";
 			// 
-			// label19
+			// StartNpcCommonExtract
 			// 
-			this.label19.AutoSize = true;
-			this.label19.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label19.Location = new System.Drawing.Point(13, 241);
-			this.label19.Name = "label19";
-			this.label19.Size = new System.Drawing.Size(133, 20);
-			this.label19.TabIndex = 27;
-			this.label19.Text = "Noesis Arguments";
-			// 
-			// NoesisArgsAnimations
-			// 
-			this.NoesisArgsAnimations.Font = new System.Drawing.Font("Segoe UI", 10F);
-			this.NoesisArgsAnimations.Location = new System.Drawing.Point(17, 264);
-			this.NoesisArgsAnimations.Name = "NoesisArgsAnimations";
-			this.NoesisArgsAnimations.Size = new System.Drawing.Size(559, 25);
-			this.NoesisArgsAnimations.TabIndex = 26;
-			this.NoesisArgsAnimations.Text = "-ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11nolodchange " +
-    " -ff11optimizegeo -ff11keepnames -fbxtexrelonly -fbxtexext .png -rotate 180 0 27" +
-    "0 -scale 60";
-			// 
-			// StartAnimationsExtract
-			// 
-			this.StartAnimationsExtract.BackColor = System.Drawing.Color.YellowGreen;
-			this.StartAnimationsExtract.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.StartAnimationsExtract.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.StartAnimationsExtract.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.StartAnimationsExtract.Location = new System.Drawing.Point(13, 87);
-			this.StartAnimationsExtract.Name = "StartAnimationsExtract";
-			this.StartAnimationsExtract.Size = new System.Drawing.Size(233, 39);
-			this.StartAnimationsExtract.TabIndex = 24;
-			this.StartAnimationsExtract.Text = "Start Animations Exporting";
-			this.StartAnimationsExtract.UseVisualStyleBackColor = false;
-			this.StartAnimationsExtract.Click += new System.EventHandler(this.StartAnimationsExtract_Click);
-			// 
-			// label20
-			// 
-			this.label20.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.label20.BackColor = System.Drawing.Color.Transparent;
-			this.label20.Font = new System.Drawing.Font("Segoe UI", 10F);
-			this.label20.Location = new System.Drawing.Point(13, 139);
-			this.label20.Name = "label20";
-			this.label20.Size = new System.Drawing.Size(609, 93);
-			this.label20.TabIndex = 25;
-			this.label20.Text = resources.GetString("label20.Text");
-			// 
-			// groupBox7
-			// 
-			this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBox7.Controls.Add(this.label21);
-			this.groupBox7.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.groupBox7.Location = new System.Drawing.Point(13, 13);
-			this.groupBox7.Name = "groupBox7";
-			this.groupBox7.Padding = new System.Windows.Forms.Padding(5);
-			this.groupBox7.Size = new System.Drawing.Size(609, 58);
-			this.groupBox7.TabIndex = 23;
-			this.groupBox7.TabStop = false;
-			this.groupBox7.Text = "Note";
-			// 
-			// label21
-			// 
-			this.label21.AutoSize = true;
-			this.label21.Font = new System.Drawing.Font("Segoe UI", 10.5F);
-			this.label21.ForeColor = System.Drawing.Color.Brown;
-			this.label21.Location = new System.Drawing.Point(8, 26);
-			this.label21.Name = "label21";
-			this.label21.Size = new System.Drawing.Size(331, 19);
-			this.label21.TabIndex = 0;
-			this.label21.Text = "Controls your PC as a \"Open\" dialog needs handling.";
+			this.StartNpcCommonExtract.BackColor = System.Drawing.Color.YellowGreen;
+			this.StartNpcCommonExtract.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.StartNpcCommonExtract.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.StartNpcCommonExtract.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.StartNpcCommonExtract.Location = new System.Drawing.Point(272, 87);
+			this.StartNpcCommonExtract.Name = "StartNpcCommonExtract";
+			this.StartNpcCommonExtract.Size = new System.Drawing.Size(245, 39);
+			this.StartNpcCommonExtract.TabIndex = 31;
+			this.StartNpcCommonExtract.Text = "Start NPC Common Exporting";
+			this.StartNpcCommonExtract.UseVisualStyleBackColor = false;
+			this.StartNpcCommonExtract.Click += new System.EventHandler(this.StartNpcCommonExtract_Click);
 			// 
 			// Form1
 			// 
@@ -791,25 +832,25 @@ namespace FFXIBatchApp
 			this.groupBox5.ResumeLayout(false);
 			this.groupBox5.PerformLayout();
 			this.tabPage4.ResumeLayout(false);
+			this.tabPage4.PerformLayout();
 			this.groupBox3.ResumeLayout(false);
 			this.groupBox3.PerformLayout();
 			this.tabPage5.ResumeLayout(false);
 			this.tabPage5.PerformLayout();
+			this.groupBox7.ResumeLayout(false);
+			this.groupBox7.PerformLayout();
 			this.tabPage6.ResumeLayout(false);
 			this.tabPage6.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
-			this.groupBox7.ResumeLayout(false);
-			this.groupBox7.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
 
 		#endregion
 		private System.Windows.Forms.RichTextBox LogBox;
-		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button StartNpcExtract;
 		private System.Windows.Forms.Timer LogTimer;
 		private System.Windows.Forms.Button StopEverything;
@@ -861,6 +902,11 @@ namespace FFXIBatchApp
 		private System.Windows.Forms.Label label20;
 		private System.Windows.Forms.GroupBox groupBox7;
 		private System.Windows.Forms.Label label21;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.TextBox NoesisArgsNPC;
+		private System.Windows.Forms.Label label22;
+		private System.Windows.Forms.Timer timer1;
+		private System.Windows.Forms.Button StartNpcCommonExtract;
 	}
 }
 

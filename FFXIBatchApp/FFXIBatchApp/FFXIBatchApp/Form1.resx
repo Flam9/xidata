@@ -119,7 +119,7 @@
   </resheader>
   <data name="label3.Text" xml:space="preserve">
     <value>This tool is designed to automate the batching of FFXI Content. Most of these processes will take control of your PC as they automate the keyboard instructions, similar to Auto HotKey. 
-To stop things: Click the big red STOP button or press the ESCAPE key on your keyboard!</value>
+To stop things: Click the big red STOP button or press the "A" key on your keyboard!</value>
   </data>
   <metadata name="LogTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -1788,9 +1788,6 @@ To stop things: Click the big red STOP button or press the ESCAPE key on your ke
         2mmn/T8//oGBifsceAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="label20.Text" xml:space="preserve">
-    <value>This dumps out all animations into FBX format, you can edit the Noesis Args to your liking below. This will actively load Noesis and begin to control the application to export each animation, this is because a single Anim DAT file contains multiple animations and we want to ensure they're all extracted individually with the correct frame count. This is a very complex process so let it run.</value>
-  </data>
   <data name="label9.Text" xml:space="preserve">
     <value>This dumps out all zones into FBX format, you can edit the args to your liking below. The settings here are recommended for 3D modelling and Game Engines. Textures are output as PNG (cannot change) and have the correct path set in the materials. Bump Normals are set on the mesh, not a separate file.</value>
   </data>
@@ -1800,11 +1797,17 @@ To stop things: Click the big red STOP button or press the ESCAPE key on your ke
   <data name="label12.Text" xml:space="preserve">
     <value>This dumps out all weapons into FBX format, you can edit the Noesis Args to your liking below. This does use ?cmode however Noesis still opens a dialog window when a FF11 Skeleton is required, so sadly it will be performing Keyboard commands and taking Window Focus to handle the Open Dialog.</value>
   </data>
+  <data name="label20.Text" xml:space="preserve">
+    <value>This dumps out all animations into FBX format, you can edit the Noesis Args to your liking below. This will actively load Noesis and begin to control the application to export each animation, this is because a single Anim DAT file contains multiple animations and we want to ensure they're all extracted individually with the correct frame count. This is a very complex process so let it run.</value>
+  </data>
   <data name="label17.Text" xml:space="preserve">
     <value>This one is a bit different, I have a modified version of PolUtils which has Mass Decode for all Music and Sound Effects.
 
 Click on the Github link at the top and you will find under the "Release" section my compiled PolUtils which you can use to extract this.</value>
   </data>
+  <metadata name="timer1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>120, 17</value>
+  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAICAAAAEAIACoEAAAFgAAACgAAAAgAAAAQAAAAAEAIAAAAAAAABAAABMLAAATCwAAAAAAAAAA

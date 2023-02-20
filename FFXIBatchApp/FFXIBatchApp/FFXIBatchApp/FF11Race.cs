@@ -49,14 +49,14 @@ namespace FFXIBatchApp
 		static string[] racesLook =
 		{
 			"",
-			"Hume_Male|27\\82",
-			"Hume_Female|32\\58",
-			"Elvaan_Male|37\\31",
-			"Elvaan_Female|42\\4",
-			"Tarutaru|46\\93", // M
-			"Tarutaru|46\\93", // F
-			"Mithra|51\\89",
-			"Galka|56\\59",
+			"Hume_Male|\\27\\82",
+			"Hume_Female|\\32\\58",
+			"Elvaan_Male|\\37\\31",
+			"Elvaan_Female|\\42\\4",
+			"Tarutaru|\\46\\93", // M
+			"Tarutaru|\\46\\93", // F
+			"Mithra|\\51\\89",
+			"Galka|\\56\\59",
 
 			// there is nothing for a bit here
 
