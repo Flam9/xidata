@@ -39,9 +39,6 @@ namespace FFXIBatchApp
 		[STAThread]
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			// Set log file
-			Logger.SetLogFile();
-
             // Load settings
             LoadSettings();
 
