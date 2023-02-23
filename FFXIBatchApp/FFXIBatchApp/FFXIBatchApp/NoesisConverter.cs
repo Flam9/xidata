@@ -61,6 +61,7 @@ namespace FFXIBatchApp
 		private void BuildAnimDatSets()
 		{
 			string filename = $"{savepath1}/anims_2.json";
+			int total = 0;
 
 			// Already built, skip.
 			if (File.Exists(filename))
@@ -162,6 +163,7 @@ namespace FFXIBatchApp
 						Directory.CreateDirectory(saveTo);
 						saveTo = $"{saveTo}\\{animType}.ff11datset";
 						results[raceName].Add($"{animType}|{saveTo}");
+						total++;
 
 						if (File.Exists(saveTo))
 						{
@@ -177,6 +179,7 @@ namespace FFXIBatchApp
 			string json = JsonConvert.SerializeObject(results, Formatting.Indented);
 			string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
 			File.WriteAllText(filePath, json);
+			File.WriteAllText(filePath + ".total", $"{total}");
 
 			ConsoleLog("- BuildAnimDatSets Complete!");
 		}
@@ -187,6 +190,7 @@ namespace FFXIBatchApp
 		private void BuildNpcLookDatSets()
 		{
 			string filename = $"{savepath1}/npc_3.json";
+			int total = 0;
 
 			// Already built, skip.
 			if (File.Exists(filename))
@@ -245,6 +249,7 @@ namespace FFXIBatchApp
 				Directory.CreateDirectory(saveTo);
 				saveTo = $"{saveTo}\\{npc.ID}_{npc.Name}.ff11datset";
 				results.Add($"{npc.ID}|{npc.Name}|{npc.Zone}|{saveTo}");
+				total++;
 
 				if (File.Exists(saveTo))
 				{
@@ -260,6 +265,7 @@ namespace FFXIBatchApp
 			string json = JsonConvert.SerializeObject(results, Formatting.Indented);
 			string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
 			File.WriteAllText(filePath, json);
+			File.WriteAllText(filePath + ".total", $"{total}");
 
 			ConsoleLog("- BuildNpcLookDatSets Complete!");
 		}

@@ -62,6 +62,7 @@ namespace FFXIBatchApp
 		private void BuildNPCList()
 		{
 			string filename = $"{savepath}/npc_1.json";
+			int total = 0;
 
 			// Already built, skip.
 			if (File.Exists(filename))
@@ -70,6 +71,15 @@ namespace FFXIBatchApp
 			}
 
 			ConsoleLog("- BuildNPCList");
+
+			// Hard coded skip list because these do not exist, but are in AltanaViewer
+			string[] skipnames =
+			{
+				"Orcish_Warmachine_4",
+				"Orcish_Warmachine_5",
+				"Orcish_Warmachine_7",
+				"Orcish_Warmachine_8"
+			};
 
 			// Create a dictionary to store the Data
 			var results = new Dictionary<string, List<string>>();
@@ -113,7 +123,13 @@ namespace FFXIBatchApp
 
 								string datpath = FinalizeDatPath(dats[i]);
 
+								if (skipnames.Contains($"{name}_{i}"))
+								{
+									continue;
+								}
+
 								results[npctype].Add($"{name}_{i}|{datpath}".Trim());
+								total++;
 							}
 						}
 					}
@@ -123,6 +139,7 @@ namespace FFXIBatchApp
 			string json = JsonConvert.SerializeObject(results, Formatting.Indented);
 			string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
 			File.WriteAllText(filePath, json);
+			File.WriteAllText(filePath + ".total", $"{total}");
 
 			ConsoleLog("- BuildNPCList Complete!");
 		}
@@ -134,6 +151,7 @@ namespace FFXIBatchApp
 		private void BuildAnimationList()
 		{
 			string filename = $"{savepath}/anims_1.json";
+			int total = 0;
 
 			// Already built, skip.
 			if (File.Exists(filename))
@@ -194,6 +212,7 @@ namespace FFXIBatchApp
 							string datpath = FinalizeDatPath(dats[i]);
 
 							results[raceName][actionName].Add($"{name}_{i}|{datpath}".Trim());
+							total++;
 						}
 					}
 				}
@@ -202,6 +221,7 @@ namespace FFXIBatchApp
 			string json = JsonConvert.SerializeObject(results, Formatting.Indented);
 			string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
 			File.WriteAllText(filePath, json);
+			File.WriteAllText(filePath + ".total", $"{total}");
 
 			ConsoleLog("- BuildAnimationList Complete!");
 		}
@@ -213,6 +233,7 @@ namespace FFXIBatchApp
 		private void BuildArmorList()
 		{
 			string filename = $"{savepath}/gear_1.json";
+			int total = 0;
 
 			// Already built, skip.
 			if (File.Exists(filename))
@@ -286,6 +307,7 @@ namespace FFXIBatchApp
 							// Gear will always be 1
 							string datpath = FinalizeDatPath(dats[0]);
 
+							total++;
 							slotList.Add($"{name}|{datpath}".Trim());
 						}
 					}
@@ -297,6 +319,7 @@ namespace FFXIBatchApp
 			string json = JsonConvert.SerializeObject(results, Formatting.Indented);
 			string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
 			File.WriteAllText(filePath, json);
+			File.WriteAllText(filePath + ".total", $"{total}");
 
 			ConsoleLog("- BuildArmorList Complete!");
 		}
@@ -311,6 +334,7 @@ namespace FFXIBatchApp
 		private void BuildWeaponList()
 		{
 			string filename = $"{savepath}/weapons_1.json";
+			int total = 0;
 
 			// Already built, skip.
 			if (File.Exists(filename))
@@ -376,6 +400,7 @@ namespace FFXIBatchApp
 						// Weapons will always be 1
 						string datpath = FinalizeDatPath(dats[0]);
 
+						total++;
 						results[slot][typeName].Add($"{name}|{datpath}".Trim());
 					}
 				}
@@ -384,6 +409,7 @@ namespace FFXIBatchApp
 			string json = JsonConvert.SerializeObject(results, Formatting.Indented);
 			string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
 			File.WriteAllText(filePath, json);
+			File.WriteAllText(filePath + ".total", $"{total}");
 
 			ConsoleLog("- BuildWeaponList Complete!");
 		}
@@ -395,6 +421,7 @@ namespace FFXIBatchApp
 		private void BuildZoneList()
 		{
 			string filename = $"{savepath}/zones_1.json";
+			int total = 0;
 
 			// Already built, skip.
 			if (File.Exists(filename))
@@ -449,6 +476,7 @@ namespace FFXIBatchApp
 						string name = FinalizeName(newline[0]);
 						string datpath = FinalizeDatPath(newline[1]);
 
+						total++;
 						results[expansion].Add($"{name}|{datpath}".Trim());
 					}
 				}
@@ -459,6 +487,7 @@ namespace FFXIBatchApp
 			File.WriteAllText(filePath, json);
 
 			ConsoleLog("- BuildZoneList Complete!");
+			File.WriteAllText(filePath + ".total", $"{total}");
 		}
 
 		/// <summary>
@@ -487,6 +516,7 @@ namespace FFXIBatchApp
 		private void BuildNpcLookList()
 		{
 			string filename = $"{savepath}/npc_2.json";
+			int total = 0;
 
 			// Already built, skip.
 			if (File.Exists(filename))
@@ -582,6 +612,7 @@ namespace FFXIBatchApp
 						looknpc[slot] = $"{fileId}|{modelID}|{path}";
 					}
 
+					total++;
 					results.Add(looknpc);
 				}
 			}
@@ -590,9 +621,12 @@ namespace FFXIBatchApp
 			string json = JsonConvert.SerializeObject(results, Formatting.Indented);
 			string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
 			File.WriteAllText(filePath, json);
+			File.WriteAllText(filePath + ".total", $"{total}");
 
 			ConsoleLog("- BuildNpcLookList Complete!");
 		}
+
+		///---------------------------------------------------------------------------------------------------------
 
 		/// <summary>
 		/// This function handles the various weird dat ranges in the AltanaView
@@ -700,7 +734,7 @@ namespace FFXIBatchApp
 		/// <returns></returns>
 		private string FinalizeName(string name)
 		{
-			return Regex.Replace(name, "[^a-zA-Z0-9_ ]+", "").Replace(" ", "_").Replace("__", "_");
+			return Regex.Replace(name.Trim(), "[^a-zA-Z0-9_ ]+", "").Replace(" ", "_").Replace("__", "_");
 		}
 
 		/// <summary>

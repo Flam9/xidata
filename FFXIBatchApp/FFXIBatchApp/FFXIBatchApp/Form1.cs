@@ -52,11 +52,19 @@ namespace FFXIBatchApp
 			ConsoleLog("-----------------------------");
 			ConsoleLog("FFXI Batch Exporter v1.0");
 			ConsoleLog("> Built by: Vekien");
-            ConsoleLog("> Please set your settings if you have not done so already.");
 			ConsoleLog("-----------------------------");
 
-            // Start the build of local data
-            BuildLocalJsonData();
+			if (Settings.GetSetting("PathFFXI") == "" || Settings.GetSetting("PathNoesis") == "")
+			{
+				ConsoleLog("!! Please set your FFXI and Noesis Path");
+				ConsoleLog("!! Then restart the application!!!");
+				ConsoleLog("!! NOTE: It will take a couple seconds to load as it's building data lists!");
+				tabControl1.SelectedIndex = 6;
+				return;
+			}
+
+			// Start the build of local data
+			BuildLocalJsonData();
 		}
 
         private void Form1_Unload(object sender, FormClosingEventArgs e)
@@ -152,7 +160,7 @@ namespace FFXIBatchApp
         /// <param name="key"></param>
         /// <param name="wait"></param>
         /// <param name="window"></param>
-        private void SendKey(string key, int wait = 300, string window = "Noesis")
+        private void SendKey(string key, int wait = 0, string window = "Noesis")
         {
             try
             {
@@ -166,6 +174,12 @@ namespace FFXIBatchApp
                 // send the key
                 //ConsoleLog($">>(SendKey) Key: {key}");
                 SendKeys.SendWait(key);
+
+				if (wait == 0)
+				{
+					wait = int.Parse(SettingsKeyDelay.Text);
+				}
+
                 Thread.Sleep(wait);
             }
             catch (Exception Ex)
@@ -263,6 +277,11 @@ namespace FFXIBatchApp
 
             ConsoleLog($"!! Error: Could not detect the Window: {windowTitle} - Current active window: {GetActiveWindowTitle()}");
 
+			// send escape a couple times
+			SendKey("{ESCAPE}", 250, "");
+			SendKey("{ESCAPE}", 250, "");
+			SendKey("{ESCAPE}", 250, "");
+
 			if (stopOnError)
 			{
 				StopActiveThreadInternal();
@@ -318,75 +337,6 @@ namespace FFXIBatchApp
             }
             return null;
         }
-
-        /// <summary>
-        /// Run a Noesis ?cmode Command.
-        /// </summary>
-        /// <param name="arguments"></param>
-        /// <param name="idleStateCode"></param>
-		private void RunNoesisCMode(string arguments, int idleStateCode = 0)
-		{
-			// Grab Noesis Path
-			string noesisPath = Settings.GetSetting("PathNoesis");
-
-			var proc = new Process
-			{
-				StartInfo = new ProcessStartInfo
-				{
-					FileName = noesisPath,
-					Arguments = $"?cmode {arguments}",
-					UseShellExecute = false,
-					RedirectStandardOutput = true,
-					RedirectStandardError = true,
-			        CreateNoWindow = false,
-					WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
-				}
-			};
-
-			proc.Start();
-
-            // Run the command slightly different based on idle state codes.
-            switch(idleStateCode)
-            {
-                default:
-                    ConsoleLog($"!! Error: Unknown idle state provided: {idleStateCode}");
-                    break;
-
-                // normal, just wait for the process to complete
-                case 0:
-					proc.WaitForExit();
-                    break;
-
-                // Look for an "Open" dialog and then close it.
-                case 1:
-					if (WaitForActiveWindow("Open"))
-					{
-                        // close it
-						SendKey("{ESCAPE}", 100, "Open");
-
-						// Wait for command to finish
-						proc.WaitForExit();
-					}
-
-                    break;
-
-                // Look for an "Open" dialog and enter in the skeleton
-                case 2:
-					Clipboard.SetText(ExtractSkeleton);
-
-					if (WaitForActiveWindow("Open"))
-					{
-						// Paste in the dat and press Enter, then give it a bit of time to load (usually is fast)
-						SendKey("^v", 200, "Open");
-						SendKey("{ENTER}", 600, "Open");
-
-						// Wait for command to finish
-						proc.WaitForExit();
-					}
-
-                    break;
-			}
-		}
 
 		/// <summary>
 		/// Checks if Noesis is running, if not, start it!
@@ -530,13 +480,19 @@ namespace FFXIBatchApp
         {
             bool buttonsEnabled = !ActiveThreadRunning;
 
+			if (Settings.GetSetting("PathFFXI") == "" || Settings.GetSetting("PathNoesis") == "")
+			{
+				buttonsEnabled = false;
+			}
+
 			Button[] buttons =
 			{
 				StartZoneExtract,
 				StartArmorExtract,
 				StartWeaponsExtract,
 				StartNpcExtract,
-				StartAnimationsExtract
+				StartAnimationsExtract,
+				StartNpcCommonExtract
 			};
 
 			foreach (Button button in buttons)
@@ -544,6 +500,8 @@ namespace FFXIBatchApp
 				button.Enabled = buttonsEnabled;
 				button.BackColor = buttonsEnabled ? Color.YellowGreen : Color.Gray;
 			}
+
+			StopEverything.Focus();
 		}
 
 		/// -----------------------------------------------------------------------------------------
@@ -590,7 +548,7 @@ namespace FFXIBatchApp
 			// A
 			if ((sbyte)e.KeyChar == 97)
 			{
-				ConsoleLog($"[HOOK] (Escape Key detected!)");
+				ConsoleLog($"[HOOK] (A Key detected!)");
 				StopActiveThread();
 				return;
 			}
@@ -685,17 +643,26 @@ namespace FFXIBatchApp
 		private void HandleNoesisExport(string source, string destination, string args)
 		{
 			// Open a DAT
-			SendKey("%f", 250);
-			SendKey("o", 250);
+			SendKey("%f", 400);
+			SendKey("o", 400);
 
 			if (WaitForActiveWindow("Open"))
 			{
-				SendText(source, 250, "Open");
-				SendKey("{ENTER}", 1600, "Open");
+				SendText(source, 400, "Open");
+				SendKey("{ENTER}", 1500, "Open");
+
+				// If the open window, opens again, it means this model has a skeleton, we will skip for now
+				// todo - one day, get the skeleton for npcs
+				if (GetActiveWindowTitle() == "Open")
+				{
+					ConsoleLog(">> This extract requires a skeleton, closing open window.");
+					ConsoleLog(">> The extract will likely be buggy.");
+					SendKey("{ESCAPE}", 500, "");
+				}
 
 				// Now open the Export Window
-				SendKey("%f", 250);
-				SendKey("e", 250);
+				SendKey("%f", 400);
+				SendKey("e", 400);
 
 				// Wait for the Export Media window to open
 				if (WaitForActiveWindow("Export Media"))
@@ -723,6 +690,12 @@ namespace FFXIBatchApp
 					SendText(args, 250, "Export Media");
 					SendKey("{ENTER}", 250, "Export Media");
 
+					// skip "open" window if it exists
+					if (GetActiveWindowTitle() == "Open")
+					{
+						SendKey("{ESCAPE}", 500, "");
+					}
+
 					// The complete window is called Noesis
 					// We wait up to 5 mins here because it could take that long
 					if (WaitForActiveWindow("Noesis", 300, true))
@@ -738,37 +711,71 @@ namespace FFXIBatchApp
 		}
 
 		/// <summary>
-		/// A test one
+		/// Run a Noesis ?cmode Command.
 		/// </summary>
-		private void TestExtract()
+		/// <param name="arguments"></param>
+		/// <param name="idleStateCode"></param>
+		private void HandleNoesisCMode(string arguments, int idleStateCode = 0)
 		{
-			// dat 
-			// todo - this should read from a list.
-			string dat = "E:\\SquareEnix\\SquareEnix\\FINAL FANTASY XI\\ROM\\250\\79.DAT";
-			Clipboard.SetText(dat);
+			// Grab Noesis Path
+			string noesisPath = Settings.GetSetting("PathNoesis");
 
-			// Open a DAT
-			SendKey("%f", 400);
-			SendKey("o", 200);
-
-			Thread.Sleep(5000);
-
-			if (WaitForActiveWindow("Open"))
+			var proc = new Process
 			{
-				// Paste in the dat and press Enter, then give it a bit of time to load (usually is fast)
-				SendKey("^v", 500, "Open");
-				SendKey("{ENTER}", 1200, "Open");
-
-				// Now open the Export Window
-				SendKey("%f", 400);
-				SendKey("e", 400);
-
-				// Wait for the Export Media window to open
-				if (WaitForActiveWindow("Export Media"))
+				StartInfo = new ProcessStartInfo
 				{
-					SendKeyTabN(3); // Destination
-
+					FileName = noesisPath,
+					Arguments = $"?cmode {arguments}",
+					UseShellExecute = false,
+					RedirectStandardOutput = true,
+					RedirectStandardError = true,
+					CreateNoWindow = false,
+					WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
 				}
+			};
+
+			proc.Start();
+
+			// Run the command slightly different based on idle state codes.
+			switch (idleStateCode)
+			{
+				default:
+					ConsoleLog($"!! Error: Unknown idle state provided: {idleStateCode}");
+					break;
+
+				// normal, just wait for the process to complete
+				case 0:
+					proc.WaitForExit();
+					break;
+
+				// Look for an "Open" dialog and then close it.
+				case 1:
+					if (WaitForActiveWindow("Open"))
+					{
+						// close it
+						SendKey("{ESCAPE}", 100, "Open");
+
+						// Wait for command to finish
+						proc.WaitForExit();
+					}
+
+					break;
+
+				// Look for an "Open" dialog and enter in the skeleton
+				case 2:
+					Clipboard.SetText(ExtractSkeleton);
+
+					if (WaitForActiveWindow("Open"))
+					{
+						// Paste in the dat and press Enter, then give it a bit of time to load (usually is fast)
+						SendKey("^v", 300, "Open");
+						SendKey("{ENTER}", 300, "Open");
+
+						// Wait for command to finish
+						proc.WaitForExit();
+					}
+
+					break;
 			}
 		}
 
@@ -827,7 +834,7 @@ namespace FFXIBatchApp
                     ConsoleLog($"-- {expName}: {zoneName}");
 
                     // Run the cmode command
-					RunNoesisCMode(command);
+					HandleNoesisCMode(command);
 				}
 			}
 
@@ -844,12 +851,16 @@ namespace FFXIBatchApp
 			string noesisArgs = NoesisArgsZone.Text.Trim();
 			string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
 			string ffxiPath = Settings.GetSetting("PathFFXI");
+			int skipped = 0;
 			FlowIntroduction("Armor");
 
 			// Load the JSON
 			ConsoleLog($"Parsing JSON: {jsonFile}");
 			string json = File.ReadAllText(jsonFile);
 			var data = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, dynamic>>>(json);
+
+			int total = int.Parse(File.ReadAllText(jsonFile + ".total"));
+			int count = 0;
 
 			// And we begin
 			foreach (var race in data)
@@ -870,6 +881,8 @@ namespace FFXIBatchApp
                     // loop through each item
                     foreach (string item in gear.Value)
                     {
+						count++;
+
 						string[] itemData = item.Split('|');
 						string itemName = itemData[0];
 						string itemPath = itemData[1];
@@ -888,25 +901,22 @@ namespace FFXIBatchApp
 						saveTo = $"{appDirectory}{saveTo}\\{itemName}.fbx";
 
 						// check if the file already exists, if so, then skip!
-						if (File.Exists(saveTo))
+						if (File.Exists(saveTo)) { skipped++; continue; }
+
+						if (skipped > 0)
 						{
-							continue;
+							ConsoleLog($"-- Skipped {skipped} already existsing extracts.");
+							skipped = 0;
 						}
 
 						// Build the Noesis cmode command
 						string command = $"\"{itemPath}\" \"{saveTo}\" {noesisArgs}";
-						ConsoleLog($"--- {raceName} - {slotName} - {itemName}");
+						ConsoleLog($"--- ({count} / {total}) {raceName} - {slotName} - {itemName}");
 
 						// Run the cmode command
-						RunNoesisCMode(command, 2);
-
-						break;
+						HandleNoesisCMode(command, 2);
                     }
-
-                    break;
                 }
-
-                break;
 			}
 
 			FlowFinished(outputFolder);
@@ -974,7 +984,7 @@ namespace FFXIBatchApp
 						ConsoleLog($"--- {slotName} - {typeName} - {itemName}");
 
 						// Run the cmode command
-						RunNoesisCMode(command, 1);
+						HandleNoesisCMode(command, 1);
                     }
                 }
             }
@@ -991,6 +1001,7 @@ namespace FFXIBatchApp
 			string outputFolder = "ToolOutput_Animations";
 			string noesisArgs = NoesisArgsAnimations.Text.Trim();
 			string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+			int skipped = 0;
 			FlowIntroduction("Animations");
 			StartNoesis();
 
@@ -1013,14 +1024,20 @@ namespace FFXIBatchApp
 					string saveTo = $"{outputFolder}\\{raceName}\\{animName}";
 					Directory.CreateDirectory(saveTo);
 
-					ConsoleLog($"-- {raceName}: {animName}");
-
 					// Begin Noesis Export
 					string sourceFile = $"{appDirectory}{animPath}";
 					string destinationFile = $"{appDirectory}{saveTo}\\{animName}.fbx";
 
 					// if destination file exists, skip
-					if (File.Exists(destinationFile)) { continue;  }
+					if (File.Exists(destinationFile)) { skipped++;  continue; }
+
+					if (skipped > 0)
+					{
+						ConsoleLog($"-- Skipped {skipped} already existsing extracts.");
+						skipped = 0;
+					}
+
+					ConsoleLog($"-- {raceName}: {animName}");
 
 					// Handle the Noesis Export part!
 					HandleNoesisExport(sourceFile, destinationFile, noesisArgs);
@@ -1040,6 +1057,7 @@ namespace FFXIBatchApp
 			string noesisArgs = NoesisArgsNPC.Text.Trim();
 			string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
 			string ffxiPath = Settings.GetSetting("PathFFXI");
+			int skipped = 0;
 			FlowIntroduction("NPC Main");
 			StartNoesis();
 
@@ -1062,14 +1080,20 @@ namespace FFXIBatchApp
 					string saveTo = $"{outputFolder}\\{categoryName}\\{npcName}";
 					Directory.CreateDirectory(saveTo);
 
-					ConsoleLog($"-- {categoryName}: {npcName}");
-
 					// Begin Noesis Export
 					string sourceFile = $"{ffxiPath}\\ROM{npcPath}.DAT";
 					string destinationFile = $"{appDirectory}{saveTo}\\{npcName}.fbx";
 
 					// if destination file exists, skip
-					if (File.Exists(destinationFile)) { continue; }
+					if (File.Exists(destinationFile)) { skipped++; continue; }
+
+					if (skipped > 0)
+					{
+						ConsoleLog($"-- Skipped {skipped} already existsing extracts.");
+						skipped = 0;
+					}
+
+					ConsoleLog($"-- {categoryName}: {npcName}");
 
 					// Handle the Noesis Export part!
 					HandleNoesisExport(sourceFile, destinationFile, noesisArgs);
@@ -1089,15 +1113,20 @@ namespace FFXIBatchApp
 			string outputFolder = "ToolOutput_NPC2";
 			string noesisArgs = NoesisArgsNPC.Text.Trim();
 			string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+			int skipped = 0;
 			FlowIntroduction("NPC Main");
 			StartNoesis();
 
 			// Load the JSON
 			string jsonfile = File.ReadAllText(jsonFile);
 			var data = JsonConvert.DeserializeObject<List<string>>(jsonfile);
+			int total = data.Count;
+			int count = 0;
 
 			foreach (string npc in data)
 			{
+				count++;
+
 				string[] npcData = npc.Split('|');
 				string npcID = npcData[0];
 				string npcName = npcData[1];
@@ -1108,14 +1137,20 @@ namespace FFXIBatchApp
 				string saveTo = $"{outputFolder}\\{npcZone}\\{npcID}_{npcName}";
 				Directory.CreateDirectory(saveTo);
 
-				ConsoleLog($"-- {npcZone}: ({npcID}) {npcName}");
-
 				// Begin Noesis Export
 				string sourceFile = $"{appDirectory}{npcPath}";
 				string destinationFile = $"{appDirectory}{saveTo}\\{npcID}_{npcName}.fbx";
 
 				// if destination file exists, skip
-				if (File.Exists(destinationFile)) { continue; }
+				if (File.Exists(destinationFile)) { skipped++; continue; }
+
+				if (skipped > 0)
+				{
+					ConsoleLog($"-- Skipped {skipped} already existsing extracts.");
+					skipped = 0;
+				}
+
+				ConsoleLog($"-- ({count} / {total}) {npcZone}: ({npcID}) {npcName}");
 
 				// Handle the Noesis Export part!
 				HandleNoesisExport(sourceFile, destinationFile, noesisArgs);
