@@ -757,7 +757,7 @@ namespace FFXIBatchApp
 
 				// Look for an "Open" dialog and then close it.
 				case 1:
-					if (WaitForActiveWindow("Open"))
+					if (WaitForActiveWindow("Open", 10))
 					{
 						// close it
 						SendKey("{ESCAPE}", 100, "Open");
@@ -772,7 +772,8 @@ namespace FFXIBatchApp
 				case 2:
 					Clipboard.SetText(ExtractSkeleton);
 
-					if (WaitForActiveWindow("Open"))
+					// short wait
+					if (WaitForActiveWindow("Open", 10))
 					{
 						// Paste in the dat and press Enter, then give it a bit of time to load (usually is fast)
 						SendKey("^v", 300, "Open");
