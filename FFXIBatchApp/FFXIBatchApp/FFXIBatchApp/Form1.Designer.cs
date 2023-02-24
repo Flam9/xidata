@@ -54,7 +54,7 @@ namespace FFXIBatchApp
 			this.label8 = new System.Windows.Forms.Label();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.label14 = new System.Windows.Forms.Label();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.NoesisArgsArmor = new System.Windows.Forms.TextBox();
 			this.StartArmorExtract = new System.Windows.Forms.Button();
 			this.label15 = new System.Windows.Forms.Label();
 			this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -375,7 +375,7 @@ namespace FFXIBatchApp
 			// tabPage2
 			// 
 			this.tabPage2.Controls.Add(this.label14);
-			this.tabPage2.Controls.Add(this.textBox1);
+			this.tabPage2.Controls.Add(this.NoesisArgsArmor);
 			this.tabPage2.Controls.Add(this.StartArmorExtract);
 			this.tabPage2.Controls.Add(this.label15);
 			this.tabPage2.Controls.Add(this.groupBox6);
@@ -398,17 +398,17 @@ namespace FFXIBatchApp
 			this.label14.TabIndex = 22;
 			this.label14.Text = "Noesis Arguments";
 			// 
-			// textBox1
+			// NoesisArgsArmor
 			// 
-			this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.textBox1.Font = new System.Drawing.Font("Segoe UI", 10F);
-			this.textBox1.Location = new System.Drawing.Point(13, 339);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(609, 25);
-			this.textBox1.TabIndex = 21;
-			this.textBox1.Text = "-ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11nolodchange " +
-    "-ff11optimizegeo -ff11keepnames -fbxtexrelonly -fbxtexext .png -rotate 180 0 270" +
-    " -scale 60";
+			this.NoesisArgsArmor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.NoesisArgsArmor.Font = new System.Drawing.Font("Segoe UI", 10F);
+			this.NoesisArgsArmor.Location = new System.Drawing.Point(13, 339);
+			this.NoesisArgsArmor.Name = "NoesisArgsArmor";
+			this.NoesisArgsArmor.Size = new System.Drawing.Size(609, 25);
+			this.NoesisArgsArmor.TabIndex = 21;
+			this.NoesisArgsArmor.Text = "-noanims -ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11nol" +
+    "odchange -ff11optimizegeo -ff11keepnames -fbxtexrelonly -fbxtexext .png -rotate " +
+    "180 0 270 -scale 60";
 			// 
 			// StartArmorExtract
 			// 
@@ -956,7 +956,7 @@ namespace FFXIBatchApp
 		private System.Windows.Forms.GroupBox groupBox5;
 		private System.Windows.Forms.Label label13;
 		private System.Windows.Forms.Label label14;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox NoesisArgsArmor;
 		private System.Windows.Forms.Button StartArmorExtract;
 		private System.Windows.Forms.Label label15;
 		private System.Windows.Forms.GroupBox groupBox6;

@@ -418,6 +418,8 @@ namespace FFXIBatchApp
             ActiveExtractThread = new Thread(() => HandleNpcMainExtract());
             ActiveExtractThread.SetApartmentState(ApartmentState.STA);
             ActiveExtractThread.Start();
+
+			StopEverything.Focus();
 		}
 
 		[STAThread]
@@ -428,6 +430,8 @@ namespace FFXIBatchApp
 			ActiveExtractThread = new Thread(() => HandleZonesExtract());
 			ActiveExtractThread.SetApartmentState(ApartmentState.STA);
 			ActiveExtractThread.Start();
+
+			StopEverything.Focus();
 		}
 
 		[STAThread]
@@ -438,6 +442,8 @@ namespace FFXIBatchApp
 			ActiveExtractThread = new Thread(() => HandleWeaponsExtract());
 			ActiveExtractThread.SetApartmentState(ApartmentState.STA);
 			ActiveExtractThread.Start();
+
+			StopEverything.Focus();
 		}
 
 		[STAThread]
@@ -448,6 +454,8 @@ namespace FFXIBatchApp
 			ActiveExtractThread = new Thread(() => HandleArmorExtract());
 			ActiveExtractThread.SetApartmentState(ApartmentState.STA);
 			ActiveExtractThread.Start();
+
+			StopEverything.Focus();
 		}
 
 		[STAThread]
@@ -458,6 +466,8 @@ namespace FFXIBatchApp
 			ActiveExtractThread = new Thread(() => HandleAnimationsExtract());
 			ActiveExtractThread.SetApartmentState(ApartmentState.STA);
 			ActiveExtractThread.Start();
+
+			StopEverything.Focus();
 		}
 
 		[STAThread]
@@ -468,6 +478,8 @@ namespace FFXIBatchApp
 			ActiveExtractThread = new Thread(() => HandleNpcLookExtract());
 			ActiveExtractThread.SetApartmentState(ApartmentState.STA);
 			ActiveExtractThread.Start();
+
+			StopEverything.Focus();
 		}
 
 		/// <summary>
@@ -497,8 +509,6 @@ namespace FFXIBatchApp
 				button.Enabled = buttonsEnabled;
 				button.BackColor = buttonsEnabled ? Color.YellowGreen : Color.Gray;
 			}
-
-			StopEverything.Focus();
 		}
 
 		/// -----------------------------------------------------------------------------------------
@@ -845,7 +855,7 @@ namespace FFXIBatchApp
         {
 			string jsonFile = $"ToolData\\gear_1.json";
 			string outputFolder = "ToolOutput_Gear";
-			string noesisArgs = NoesisArgsZone.Text.Trim();
+			string noesisArgs = NoesisArgsArmor.Text.Trim();
 			string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
 			string ffxiPath = Settings.GetSetting("PathFFXI");
 			int skipped = 0;
@@ -926,7 +936,7 @@ namespace FFXIBatchApp
         {
             string jsonFile = $"ToolData\\weapons_1.json";
             string outputFolder = "ToolOutput_Weapons";
-            string noesisArgs = NoesisArgsZone.Text.Trim();
+            string noesisArgs = NoesisArgsWeapons.Text.Trim();
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string ffxiPath = Settings.GetSetting("PathFFXI");
 			FlowIntroduction("Weapons");
