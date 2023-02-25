@@ -316,9 +316,8 @@ namespace FFXIBatchApp
 			this.NoesisArgsZone.Name = "NoesisArgsZone";
 			this.NoesisArgsZone.Size = new System.Drawing.Size(609, 25);
 			this.NoesisArgsZone.TabIndex = 11;
-			this.NoesisArgsZone.Text = "-ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11nolodchange " +
-    "-ff11optimizegeo -ff11keepnames -fbxtexrelonly -fbxtexext .png -rotate 180 0 0 -" +
-    "scale 100";
+			this.NoesisArgsZone.Text = "-ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11keepnames -f" +
+    "bxtexrelonly -fbxtexext .png -rotate 180 0 0 -scale 100";
 			// 
 			// StartZoneExtract
 			// 
