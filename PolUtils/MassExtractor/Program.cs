@@ -34,6 +34,7 @@ namespace MassExtractor
             {
                 ROMPath = FFXI.GetFilePath(FileNumber);
             }
+
             if (ROMPath == null || !File.Exists(ROMPath))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -41,6 +42,7 @@ namespace MassExtractor
                 Console.ForegroundColor = ConsoleColor.White;
                 return;
             }
+
             Program.ExtractFile(ROMPath, OutputFile);
         }
 
@@ -48,10 +50,12 @@ namespace MassExtractor
         {
             try
             {
-                Console.Write(I18N.GetText("Extracting"), Path.GetFileName(OutputFile));
+                Console.Write(I18N.GetText("Extracting"), ROMPath, Path.GetFileName(OutputFile));
+
                 ThingList KnownData = FileType.LoadAll(ROMPath, null);
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write(I18N.GetText("Load"));
+
                 if (KnownData != null)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -59,6 +63,7 @@ namespace MassExtractor
                     bool SaveOK = KnownData.Save(OutputFile);
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.Write(I18N.GetText("Save"));
+
                     if (SaveOK)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -69,6 +74,7 @@ namespace MassExtractor
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine(I18N.GetText("FAILED"));
                     }
+
                     KnownData.Clear();
                 }
                 else
@@ -288,7 +294,13 @@ namespace MassExtractor
                     Program.ExtractFile(55465, "resources/areaE.xml");
                     Program.ExtractFile(55702, "resources/spellE.xml");
                     Program.ExtractFile(55726, "resources/statusE.xml");
+					Program.ExtractFile(55725, "status-names.xml");
+					Program.ExtractFile(55734, "spell-descriptions.xml");
+					Program.ExtractFile(55733, "ability-descriptions.xml");
 
+					/*
+                     * French > German > Japanese
+                     * 
                     Program.ExtractFile(56235, "resources/generalF.xml");
                     Program.ExtractFile(56211, "resources/general2F.xml");
                     Program.ExtractFile(56236, "resources/usableF.xml");
@@ -330,8 +342,10 @@ namespace MassExtractor
                     Program.ExtractFile(55535, "resources/areaJ.xml");
                     Program.ExtractFile(55582, "resources/spellJ.xml");
                     Program.ExtractFile(55605, "resources/statusJ.xml");
-                    // Interesting Data
-                    Program.ExtractFile(11, "old-spells-1.xml");
+                    */
+
+					// Interesting Data
+					Program.ExtractFile(11, "old-spells-1.xml");
                     Program.ExtractFile(73, "items-general.xml");
                     Program.ExtractFile(55671, "items-general2.xml");
                     Program.ExtractFile(74, "items-usable.xml");
@@ -345,17 +359,20 @@ namespace MassExtractor
                     Program.ExtractFile(87, "old-statuses.xml");
                     Program.ExtractFile(91, "items-currency.xml");
                     Program.ExtractFile(55667, "items-voucher-slip.xml");
+
                     // Dialog Tables
                     for (ushort i = 0; i < 0x100; ++i)
                     {
                         Program.ExtractFile(6420 + i, String.Format("dialog-table-{0:000}.xml", i));
                     }
+
                     // Whitegate's 2nd dialog table
                     Program.ExtractFile(57945, "dialog-table-50-2.xml");
                     for (ushort i = 0; i < 0x100; ++i)
                     {
                         Program.ExtractFile(85590 + i, String.Format("dialog-table-{0:000}.xml", i + 255));
                     }
+
                     // Mob Lists
                     for (ushort i = 0; i < 0x100; ++i)
                     {
@@ -369,6 +386,7 @@ namespace MassExtractor
                     {
                         Program.ExtractFile(67910 + i, String.Format("mob-list2-{0:000}.xml", i));
                     }
+
                     // String Tables
                     Program.ExtractFile(55465, "area-names.xml");
                     Program.ExtractFile(55466, "area-names-search.xml");
@@ -393,6 +411,7 @@ namespace MassExtractor
                     Program.ExtractFile(55659, "directions.xml");
                     Program.ExtractFile(55660, "moon-phases.xml");
                     Program.ExtractFile(55661, "area-names-alternate.xml");
+
                     // String Tables That Used To Be Special Formats
                     Program.ExtractFile(55695, "key-items.xml");
                     Program.ExtractFile(55701, "ability-names.xml");
@@ -419,9 +438,9 @@ namespace MassExtractor
                     Program.ExtractFile(55735, "missions-prophecy.xml");
                     Program.ExtractFile(55736, "missions-moogle.xml");
                     Program.ExtractFile(55737, "missions-shantotto.xml");
-                    Program.ExtractFile(55725, "status-names.xml");
-                    Program.ExtractFile(55733, "ability-descriptions.xml");
-                    Program.ExtractFile(55734, "spell-descriptions.xml");
+                    
+                    
+                    
                 }
                 DateTime ExtractionEnd = DateTime.Now;
                 Console.WriteLine(String.Format(I18N.GetText("EndTime"), ExtractionEnd));

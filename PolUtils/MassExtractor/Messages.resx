@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BadFileID" xml:space="preserve">
     <value>File ID {0} not assigned; cannot extract {1}</value>
@@ -139,7 +139,7 @@
     <value>A problem occurred: {0}</value>
   </data>
   <data name="Extracting" xml:space="preserve">
-    <value>Extracting {0}...</value>
+    <value>Extracting {0} &gt; {1}...</value>
   </data>
   <data name="ExtractingAll" xml:space="preserve">
     <value> - Extracting known data ({0} item(s)) from {1}...</value>
