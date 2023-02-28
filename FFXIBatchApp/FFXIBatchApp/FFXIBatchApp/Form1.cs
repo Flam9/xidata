@@ -895,6 +895,11 @@ namespace FFXIBatchApp
 						string itemName = itemData[0];
 						string itemPath = itemData[1];
 
+						if (itemName.Length == 0) { continue;  }
+
+						// used for testing
+						// if (slotName != "Face") { continue; }
+
 						// if the name is "None" we skip
 						if (itemName == "None") { continue; }
 
@@ -902,7 +907,7 @@ namespace FFXIBatchApp
 						itemPath = $"{ffxiPath}\\ROM{itemPath}.DAT";
 
 						// Set the save output
-						string saveTo = $"{outputFolder}\\{raceName}\\{slotName}";
+						string saveTo = $"{outputFolder}\\{raceName}\\{slotName}\\{itemName}";
 						Directory.CreateDirectory(saveTo);
 
 						// Append the filename onto the save to

@@ -316,8 +316,9 @@ namespace FFXIBatchApp
 			this.NoesisArgsZone.Name = "NoesisArgsZone";
 			this.NoesisArgsZone.Size = new System.Drawing.Size(609, 25);
 			this.NoesisArgsZone.TabIndex = 11;
-			this.NoesisArgsZone.Text = "-ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11optimizegeo " +
-    "-ff11keepnames -fbxtexrelonly -fbxtexext .png -rotate 180 0 0 -scale 100";
+			this.NoesisArgsZone.Text = "-noanims -ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11opt" +
+    "imizegeo -ff11keepnames -fbxtexrelonly -fbxtexext .png -rotate 180 0 270 -scale " +
+    "120";
 			// 
 			// StartZoneExtract
 			// 
@@ -405,9 +406,9 @@ namespace FFXIBatchApp
 			this.NoesisArgsArmor.Name = "NoesisArgsArmor";
 			this.NoesisArgsArmor.Size = new System.Drawing.Size(609, 25);
 			this.NoesisArgsArmor.TabIndex = 21;
-			this.NoesisArgsArmor.Text = "-noanims -ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11nol" +
-    "odchange -ff11optimizegeo -ff11keepnames -fbxtexrelonly -fbxtexext .png -rotate " +
-    "180 0 270 -scale 60";
+			this.NoesisArgsArmor.Text = "-noanims -ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11opt" +
+    "imizegeo -ff11keepnames -fbxtexrelonly -fbxtexext .png -rotate 180 0 270 -scale " +
+    "60";
 			// 
 			// StartArmorExtract
 			// 
@@ -495,9 +496,9 @@ namespace FFXIBatchApp
 			this.NoesisArgsWeapons.Name = "NoesisArgsWeapons";
 			this.NoesisArgsWeapons.Size = new System.Drawing.Size(609, 25);
 			this.NoesisArgsWeapons.TabIndex = 16;
-			this.NoesisArgsWeapons.Text = "-noanims -ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11nol" +
-    "odchange  -ff11optimizegeo -ff11keepnames -fbxtexrelonly -fbxtexext .png -rotate" +
-    " 180 0 270 -scale 60";
+			this.NoesisArgsWeapons.Text = "-noanims -ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11opt" +
+    "imizegeo -ff11keepnames -fbxtexrelonly -fbxtexext .png -rotate 180 0 270 -scale " +
+    "60";
 			// 
 			// StartWeaponsExtract
 			// 
@@ -600,9 +601,8 @@ namespace FFXIBatchApp
 			this.NoesisArgsNPC.Name = "NoesisArgsNPC";
 			this.NoesisArgsNPC.Size = new System.Drawing.Size(609, 25);
 			this.NoesisArgsNPC.TabIndex = 29;
-			this.NoesisArgsNPC.Text = "-ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11nolodchange " +
-    " -ff11optimizegeo -ff11keepnames -fbxtexrelonly -fbxtexext .png -rotate 180 0 0 " +
-    "-scale 120";
+			this.NoesisArgsNPC.Text = "-ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11optimizegeo " +
+    "-ff11keepnames -fbxtexrelonly -fbxtexext .png -rotate 180 0 0 -scale 120";
 			// 
 			// label22
 			// 
@@ -676,9 +676,8 @@ namespace FFXIBatchApp
 			this.NoesisArgsAnimations.Name = "NoesisArgsAnimations";
 			this.NoesisArgsAnimations.Size = new System.Drawing.Size(609, 25);
 			this.NoesisArgsAnimations.TabIndex = 26;
-			this.NoesisArgsAnimations.Text = "-ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11nolodchange " +
-    " -ff11optimizegeo -ff11keepnames -fbxtexrelonly -fbxtexext .png -rotate 180 0 27" +
-    "0 -scale 60";
+			this.NoesisArgsAnimations.Text = "-ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11optimizegeo " +
+    "-ff11keepnames -fbxtexrelonly -fbxtexext .png -rotate 180 0 270 -scale 60";
 			// 
 			// StartAnimationsExtract
 			// 
