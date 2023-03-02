@@ -235,6 +235,10 @@ namespace FFXIBatchApp
 			string filename = $"{savepath}/gear_1.json";
 			int total = 0;
 
+			// DB Face
+			string ue4FaceDB = $"{savepath}/FF11_DB_Face.csv";
+			string ue4GearDB = $"{savepath}/FF11_DB_Gear.csv";
+
 			// Already built, skip.
 			if (File.Exists(filename))
 			{
@@ -245,6 +249,11 @@ namespace FFXIBatchApp
 
 			// another blast from ChatGPT
 			Dictionary<string, Dictionary<string, object>> results = new Dictionary<string, Dictionary<string, object>>();
+			List<string> dbFace = new List<string>();
+			List<string> dbGear = new List<string>();
+
+			dbFace.Add("---,Name,Mesh,Race");
+			dbGear.Add("---,Level,Name,Description,Slot,Mesh,Race");
 
 			// for resource fetching
 			Assembly assembly = Assembly.GetExecutingAssembly();
@@ -293,6 +302,7 @@ namespace FFXIBatchApp
 					{
 						string line;
 
+						int gearCount = 0;
 						while ((line = reader.ReadLine()) != null)
 						{
 							if (line.Length == 0)
@@ -303,12 +313,31 @@ namespace FFXIBatchApp
 							string[] newline = line.Split(',');
 							string name = FinalizeName(newline[1]);
 							string[] dats = SplitDatRange(newline[0]);
+							gearCount++;
+
+							// The name "None" is often a keyword in game engines, we will rename to "Default".
+							if (name == "None") { 
+								name = "Default"; 
+							}
 
 							// Gear will always be 1
 							string datpath = FinalizeDatPath(dats[0]);
 
 							total++;
 							slotList.Add($"{name}|{datpath}".Trim());
+
+							// if face, add to
+							if (name.Length > 0)
+							{
+								if (slot == "Face")
+								{
+									dbFace.Add($"{raceName}_{name},\"{name}\",\"SkeletalMesh'/Game/FF11/Characters/Gear/{raceName}/Faces/{name}/{name}.{name}'\",\"{raceName}\"");
+								}
+								else
+								{
+									dbGear.Add($"{raceName}_{slot}_{name},\"1\",\"{newline[1]}\",\"\",\"{slot}\",\"SkeletalMesh'/Game/FF11/Characters/Gear/{raceName}/{slot}/{name}/{name}.{name}'\",\"{raceName}\"");
+								}
+							}
 						}
 					}
 
@@ -320,6 +349,12 @@ namespace FFXIBatchApp
 			string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
 			File.WriteAllText(filePath, json);
 			File.WriteAllText(filePath + ".total", $"{total}");
+
+			// save unreal engine db files
+			string filePathDbFace = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ue4FaceDB);
+			string filePathDbGear = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ue4GearDB);
+			File.WriteAllText(filePathDbFace, string.Join("\n", dbFace));
+			File.WriteAllText(filePathDbGear, string.Join("\n", dbGear));
 
 			ConsoleLog("- BuildArmorList Complete!");
 		}

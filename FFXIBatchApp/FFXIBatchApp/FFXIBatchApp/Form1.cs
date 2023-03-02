@@ -900,9 +900,6 @@ namespace FFXIBatchApp
 						// used for testing
 						// if (slotName != "Face") { continue; }
 
-						// if the name is "None" we skip
-						if (itemName == "None") { continue; }
-
 						// Set the path to the full name
 						itemPath = $"{ffxiPath}\\ROM{itemPath}.DAT";
 
@@ -967,7 +964,7 @@ namespace FFXIBatchApp
                     JArray weapons = (JArray)typedata.Value;
 
                     // if type is "None" SKIP
-                    if (typeName == "None") { continue;  }
+                    if (typeName == "None") { continue; }
 
                     // Loop through each item in the JArray
                     foreach (string item in weapons)
