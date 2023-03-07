@@ -295,3 +295,8 @@ X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Re
 X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\DatsetAnims\Anims_Hume_Male_Basic.ff11datset
 X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\DatsetAnims\Anims_Mithra_Basic.ff11datset
 X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\DatsetAnims\Anims_Tarutaru_Basic.ff11datset
+X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\ZoneList\ZoneRoomsDats.txt
+X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\PlayOnline.Core.dll
+X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\PlayOnline.FFXI.dll
+X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\PlayOnline.Core.pdb
+X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\PlayOnline.FFXI.pdb

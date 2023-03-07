@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -68,7 +69,8 @@ namespace FFXIBatchApp
         {
             // Remove hook listeners
             HookUnsubscribe();
-        }
+			StopActiveThread();
+		}
 
         /// <summary>
         /// Load the users settings
@@ -400,6 +402,18 @@ namespace FFXIBatchApp
 			Process.Start("https://github.com/vekien/xidata");
 		}
 
+		private void OpenOutputFolder_Click(object sender, EventArgs e)
+		{
+			string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+			Process.Start(appDirectory);
+		}
+
+		private void OpenLogFile_Click(object sender, EventArgs e)
+		{
+			string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+			Process.Start($"{appDirectory}/log.txt");
+		}
+
 		/// <summary>
 		/// Stop all extractions, aborts the current thread.
 		/// </summary>
@@ -482,6 +496,18 @@ namespace FFXIBatchApp
 			StopEverything.Focus();
 		}
 
+		[STAThread]
+		private void StartZoneRoomsExtract_Click(object sender, EventArgs e)
+		{
+			if (ActiveThreadRunning) { return; }
+
+			ActiveExtractThread = new Thread(() => HandleZonesRoomsExtract());
+			ActiveExtractThread.SetApartmentState(ApartmentState.STA);
+			ActiveExtractThread.Start();
+
+			StopEverything.Focus();
+		}
+
 		/// <summary>
 		/// Toggle the state of buttons based on if a thread is running or not.
 		/// </summary>
@@ -497,6 +523,7 @@ namespace FFXIBatchApp
 			Button[] buttons =
 			{
 				StartZoneExtract,
+				StartZoneRoomsExtract,
 				StartArmorExtract,
 				StartWeaponsExtract,
 				StartNpcExtract,
@@ -704,8 +731,8 @@ namespace FFXIBatchApp
 					}
 
 					// The complete window is called Noesis
-					// We wait up to 5 mins here because it could take that long
-					if (WaitForActiveWindow("Noesis", 300, true))
+					// We wait a long time here because exports can have a lot of files
+					if (WaitForActiveWindow("Noesis", 400, true))
 					{
 						Thread.Sleep(50);
 
@@ -760,7 +787,7 @@ namespace FFXIBatchApp
 					if (WaitForActiveWindow("Open", 10))
 					{
 						// close it
-						SendKey("{ESCAPE}", 100, "Open");
+						SendKey("{ESCAPE}", 200, "Open");
 
 						// Wait for command to finish
 						proc.WaitForExit();
@@ -841,12 +868,73 @@ namespace FFXIBatchApp
                     string command = $"\"{zonePath}\" \"{saveTo}\" {noesisArgs}";
                     ConsoleLog($"-- {expName}: {zoneName}");
 
+					ConsoleLog(command);
+
                     // Run the cmode command
 					HandleNoesisCMode(command);
 				}
 			}
 
             FlowFinished(outputFolder);
+		}
+
+		/// <summary>
+		/// Extract all zone rooms
+		/// </summary>
+		private void HandleZonesRoomsExtract()
+		{
+			string outputFolder = "ToolOutput_ZoneRooms";
+			string noesisArgs = NoesisArgsZone.Text.Trim();
+			string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+			string ffxiPath = Settings.GetSetting("PathFFXI");
+			string resourceName = $"FFXIBatchApp.Resources.ZoneList.ZoneRoomsDats.txt";
+			int count = 0;
+			FlowIntroduction("Zones");
+
+			Assembly assembly = Assembly.GetExecutingAssembly();
+			using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+			using (StreamReader reader = new StreamReader(stream))
+			{
+				string line;
+
+				while ((line = reader.ReadLine()) != null)
+				{
+					if (line.Length == 0)
+					{
+						continue;
+					}
+
+					count++;
+					string[] zoneData = line.Split('|');
+					string zoneID = zoneData[0];
+					string zoneName = zoneData[1];
+					string zonePath = zoneData[2];
+
+					zonePath = 
+
+					// Set the path to the full name
+					zonePath = $"{ffxiPath}\\ROM{zonePath}.DAT";
+
+					// Set the save output
+					string saveTo = $"{outputFolder}\\{zoneName}\\{count}";
+					Directory.CreateDirectory(saveTo);
+
+					// Append the filename onto the save to
+					saveTo = $"{appDirectory}{saveTo}\\{zoneName}_{count}.fbx";
+
+					// check if the file already exists, if so, then skip!
+					if (File.Exists(saveTo)) { continue; }
+
+					// Build the Noesis cmode command
+					string command = $"\"{zonePath}\" \"{saveTo}\" {noesisArgs}";
+					ConsoleLog($"-- {zoneName} > {count}");
+
+					// Run the cmode command
+					HandleNoesisCMode(command);
+				}
+			}
+
+			FlowFinished(outputFolder);
 		}
 
         /// <summary>
@@ -977,7 +1065,7 @@ namespace FFXIBatchApp
 						itemPath = $"{ffxiPath}\\ROM{itemPath}.DAT";
 
                         // Set the save output
-						string saveTo = $"{outputFolder}\\{slotName}\\{typeName}";
+						string saveTo = $"{outputFolder}\\{slotName}\\{typeName}\\{itemName}";
 						Directory.CreateDirectory(saveTo);
 
 						// Append the filename onto the save to
@@ -1007,7 +1095,7 @@ namespace FFXIBatchApp
 		/// </summary>
 		private void HandleAnimationsExtract()
         {
-			string jsonFile = $"ToolData\\anims_2.json";
+			string filename = $"ToolData\\anims_2.txt";
 			string outputFolder = "ToolOutput_Animations";
 			string noesisArgs = NoesisArgsAnimations.Text.Trim();
 			string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -1016,42 +1104,37 @@ namespace FFXIBatchApp
 			StartNoesis();
 
 			// Load the JSON
-			string jsonfile = File.ReadAllText(jsonFile);
-			var data = JsonConvert.DeserializeObject<Dictionary<string, string[]>>(jsonfile);
+			string[] anims = File.ReadAllText(filename).Split('\n');
 
 			// And we begin
-			foreach (var raceAnimations in data)
+			foreach (string animline in anims)
 			{
-				string raceName = raceAnimations.Key;
+				string[] animData = animline.Split('|');
+				string name = animData[0];
+				string race = animData[1];
+				string path = animData[2];
 
-				foreach (string animations in raceAnimations.Value)
+				// set save path
+				string saveTo = $"{outputFolder}\\{race}\\{name}";
+				Directory.CreateDirectory(saveTo);
+
+				// Begin Noesis Export
+				string sourceFile = $"{appDirectory}{path}";
+				string destinationFile = $"{appDirectory}{saveTo}\\{name}.fbx";
+
+				// if destination file exists, skip
+				if (File.Exists(destinationFile)) { skipped++; continue; }
+
+				if (skipped > 0)
 				{
-					string[] animData = animations.Split('|');
-					string animName = animData[0];
-					string animPath = animData[1];
-
-					// set save path
-					string saveTo = $"{outputFolder}\\{raceName}\\{animName}";
-					Directory.CreateDirectory(saveTo);
-
-					// Begin Noesis Export
-					string sourceFile = $"{appDirectory}{animPath}";
-					string destinationFile = $"{appDirectory}{saveTo}\\{animName}.fbx";
-
-					// if destination file exists, skip
-					if (File.Exists(destinationFile)) { skipped++;  continue; }
-
-					if (skipped > 0)
-					{
-						ConsoleLog($"-- Skipped {skipped} already existsing extracts.");
-						skipped = 0;
-					}
-
-					ConsoleLog($"-- {raceName}: {animName}");
-
-					// Handle the Noesis Export part!
-					HandleNoesisExport(sourceFile, destinationFile, noesisArgs);
+					ConsoleLog($"-- Skipped {skipped} already existsing extracts.");
+					skipped = 0;
 				}
+
+				ConsoleLog($"-- {race}: {name}");
+
+				// Handle the Noesis Export part!
+				HandleNoesisExport(sourceFile, destinationFile, noesisArgs);
 			}
 
 			FlowFinished(outputFolder);
@@ -1168,5 +1251,7 @@ namespace FFXIBatchApp
 
 			FlowFinished(outputFolder);
 		}
+
+		
 	}
 }

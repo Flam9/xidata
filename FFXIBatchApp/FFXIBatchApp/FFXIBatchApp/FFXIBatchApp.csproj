@@ -43,6 +43,12 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PlayOnline.Core">
+      <HintPath>..\..\..\PolUtils\PlayOnline.FFXI\bin\Debug\PlayOnline.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="PlayOnline.FFXI">
+      <HintPath>..\..\..\PolUtils\PlayOnline.FFXI\bin\Debug\PlayOnline.FFXI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -976,6 +982,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pol.ico" />
+    <EmbeddedResource Include="Resources\ZoneList\ZoneRoomsDats.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

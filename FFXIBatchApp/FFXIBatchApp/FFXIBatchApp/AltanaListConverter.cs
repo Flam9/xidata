@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using Microsoft.VisualBasic.FileIO;
 using static System.Net.Mime.MediaTypeNames;
 using Newtonsoft.Json.Linq;
+using System.CodeDom.Compiler;
 
 namespace FFXIBatchApp
 {
@@ -150,8 +151,7 @@ namespace FFXIBatchApp
 		/// </summary>
 		private void BuildAnimationList()
 		{
-			string filename = $"{savepath}/anims_1.json";
-			int total = 0;
+			string filename = $"{savepath}/anims_1.txt";
 
 			// Already built, skip.
 			if (File.Exists(filename))
@@ -162,7 +162,7 @@ namespace FFXIBatchApp
 			ConsoleLog("- BuildAnimationList");
 
 			// lol this is a bit bonkers, ChatGPT made it...
-			Dictionary<string, Dictionary<string, List<string>>> results = new Dictionary<string, Dictionary<string, List<string>>>();
+			List<string> results = new List<string>();
 
 			// for resource fetching
 			Assembly assembly = Assembly.GetExecutingAssembly();
@@ -199,29 +199,17 @@ namespace FFXIBatchApp
 
 						for (int i = 0; i < dats.Length; i++)
 						{
-							if (!results.ContainsKey(raceName))
-							{
-								results[raceName] = new Dictionary<string, List<string>>();
-							}
-
-							if (!results[raceName].ContainsKey(actionName))
-							{
-								results[raceName][actionName] = new List<string>();
-							}
-
 							string datpath = FinalizeDatPath(dats[i]);
-
-							results[raceName][actionName].Add($"{name}_{i}|{datpath}".Trim());
-							total++;
+							results.Add($"{raceName}|{actionName}|{name}_{i}|{datpath}");
 						}
 					}
 				}
 			}
 
-			string json = JsonConvert.SerializeObject(results, Formatting.Indented);
+			string fileData = String.Join("\n", results.ToArray());
 			string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
-			File.WriteAllText(filePath, json);
-			File.WriteAllText(filePath + ".total", $"{total}");
+			File.WriteAllText(filePath, fileData);
+			File.WriteAllText(filePath + ".total", $"{results.Count}");
 
 			ConsoleLog("- BuildAnimationList Complete!");
 		}

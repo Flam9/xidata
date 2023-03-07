@@ -10,6 +10,8 @@ using Microsoft.VisualBasic.FileIO;
 using static System.Net.Mime.MediaTypeNames;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
+using Microsoft.VisualBasic.Devices;
+using PlayOnline.FFXI;
 
 namespace FFXIBatchApp
 {
@@ -60,30 +62,20 @@ namespace FFXIBatchApp
 		/// </summary>
 		private void BuildAnimDatSets()
 		{
-			string filename = $"{savepath1}/anims_2.json";
-			int total = 0;
-
-			// Already built, skip.
-			if (File.Exists(filename))
-			{
-				return;
-			}
+			List<string> results = new List<string>();
+			List<string> ff11datsets = new List<string>();
+			string filename = $"{savepath1}/anims_2.txt";
+			string ffxiPath = Settings.GetSetting("PathFFXI");
 
 			ConsoleLog("- BuildAnimDatSets");
 
-			// A list to save to so we can quickly process these in bulk
-			Dictionary<string, List<string>> results = new Dictionary<string, List<string>>();
-
 			// Quickly build the basic anim sets as they just need to be copy/pasted.
 			// Loop through resource names
-			foreach (string raceName in FF11Race.GetRaces())
+			foreach (string race in FF11Race.GetRaces())
 			{
-				string ffxiPath = Settings.GetSetting("PathFFXI");
-				string raceTemplate = $"FFXIBatchApp.Resources.DatsetAnims.Anims_{raceName}_Basic.ff11datset";
-
 				// Load the template
 				Assembly assembly = Assembly.GetExecutingAssembly();
-				using (Stream stream = assembly.GetManifestResourceStream(raceTemplate))
+				using (Stream stream = assembly.GetManifestResourceStream($"FFXIBatchApp.Resources.DatsetAnims.Anims_{race}_Basic.ff11datset"))
 				using (StreamReader reader = new StreamReader(stream))
 				{
 					// this is the template
@@ -92,96 +84,93 @@ namespace FFXIBatchApp
 					// first replace the ffxipath
 					contents = contents.Replace("[[FFXI_PATH]]", $"{ffxiPath}\\");
 
-					if (!results.ContainsKey(raceName))
-					{
-						results[raceName] = new List<string>();
-					}
-
 					// All backslashes must be forward slashes
 					contents = contents.Replace("\\", "/");
 
 					// the save to path
-					string saveTo = $"{savepath2}\\Anims\\{raceName}";
-					Directory.CreateDirectory(saveTo);					
+					string saveTo = $"{savepath2}\\Anims\\{race}";
+					Directory.CreateDirectory(saveTo);	
+					
+					// write out basic anims
 					saveTo = $"{saveTo}\\Basic.ff11datset";
+					ff11datsets.Add($"{race}|Basic|{saveTo}");
+
+					if (File.Exists(saveTo)) { continue; }
+
 					File.WriteAllText(saveTo, contents);
 
-					ConsoleLog($"-- {raceName} - Basic");
-					results[raceName].Add($"Basic|{saveTo}");
+					// add to list
+					ConsoleLog($"-- {race} - Basic");
+					results.Add($"{race}|Basic|{saveTo}");
 				}
 			}
 
 			// Now build all other anims
 
 			// Load the JSON
-			string jsonfile = File.ReadAllText($"{savepath1}\\anims_1.json");
-			var data = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, dynamic>>>(jsonfile);
+			string[] animData = File.ReadAllText($"{savepath1}\\anims_1.txt").Split('\n');
 
-			// And we begin
-			foreach (var race in data)
+			// loop through each line
+			string groupCurrent = "";
+			List<string> groupList = new List<string>();
+			foreach (string animLine in animData)
 			{
-				// eg: "Elvaan_Female", "Elvaan_Male", etc
-				string raceName = race.Key;
-				string raceTemplate = $"FFXIBatchApp.Resources.DatsetTemplate.Animations_{raceName}.template";
-				string ffxiPath = Settings.GetSetting("PathFFXI");
+				string[] anim = animLine.Split('|');
 
-				// Load the template
-				Assembly assembly = Assembly.GetExecutingAssembly();
-				using (Stream stream = assembly.GetManifestResourceStream(raceTemplate))
-				using (StreamReader reader = new StreamReader(stream))
+				string race = anim[0];
+				string group = anim[1];
+				string name = anim[2];
+				string dat = anim[3];
+
+				// get the Noesis Template
+				string raceTemplate = $"FFXIBatchApp.Resources.DatsetTemplate.Animations_{race}.template";
+
+				if (groupCurrent != group && groupList.Count > 0)
 				{
-					// this is the template
-					string contents = reader.ReadToEnd();
-
-					// first replace the ffxipath
-					contents = contents.Replace("[[FFXI_PATH]]", $"{ffxiPath}\\");
-
-					// loop through gear types
-					foreach (var anims in race.Value)
+					// write out the file
+					// Load the template
+					Assembly assembly = Assembly.GetExecutingAssembly();
+					using (Stream stream = assembly.GetManifestResourceStream(raceTemplate))
+					using (StreamReader reader = new StreamReader(stream))
 					{
-						string animType = anims.Key;
-						string datsetLines = "";
+						// this is the template
+						string contents = reader.ReadToEnd();
 
-						foreach (string anim in anims.Value)
-						{
-							string[] animData = anim.Split('|');
-							string animName = animData[0];
-							string animPath = animData[1];
-
-							// make the Noesis Datset entry
-							datsetLines += $"dat \"__animation\" \"ROM{animPath}.DAT\"\n";
-						}
+						// first replace the ffxipath
+						contents = contents.Replace("[[FFXI_PATH]]", $"{ffxiPath}\\");
 
 						// replace with the confirmed datswet lines
-						contents = contents.Replace("[[ALL_OTHER_ANIMATIONS]]", datsetLines);
+						contents = contents.Replace("[[ALL_OTHER_ANIMATIONS]]", String.Join("\n", groupList));
 
 						// All backslashes must be forward slashes
 						contents = contents.Replace("\\", "/");
 
-						// the save to path
-						string saveTo = $"{savepath2}\\Anims\\{raceName}";
-						Directory.CreateDirectory(saveTo);
-						saveTo = $"{saveTo}\\{animType}.ff11datset";
-						results[raceName].Add($"{animType}|{saveTo}");
-						total++;
+						// Save the ff11datset
+						string saveTo = $"{savepath2}\\Anims\\{race}\\{groupCurrent}.ff11datset";
+						ff11datsets.Add($"{race}|{groupCurrent}|{saveTo}");
 
-						if (File.Exists(saveTo))
+						// clear datlist for the next loop
+						groupList.Clear();
+
+						if (!File.Exists(saveTo)) 
 						{
-							continue;
+							File.WriteAllText(saveTo, contents);
+							ConsoleLog($"-- {race} - {groupCurrent}");
 						}
-
-						File.WriteAllText(saveTo, contents);
-						ConsoleLog($"-- {raceName} - {animType}");
 					}
 				}
+
+				// Add to the list for this group
+				groupList.Add($"dat \"__animation\" \"ROM{dat}.DAT\"");
+
+				// Set group
+				groupCurrent = group;
 			}
 
-			string json = JsonConvert.SerializeObject(results, Formatting.Indented);
+			string fileData = String.Join("\n", ff11datsets.ToArray());
 			string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filename);
-			File.WriteAllText(filePath, json);
-			File.WriteAllText(filePath + ".total", $"{total}");
-
-			ConsoleLog("- BuildAnimDatSets Complete!");
+			File.WriteAllText(filePath, fileData);
+			File.WriteAllText(filePath + ".total", $"{ff11datsets.Count}");
 		}
 
 		/// <summary>

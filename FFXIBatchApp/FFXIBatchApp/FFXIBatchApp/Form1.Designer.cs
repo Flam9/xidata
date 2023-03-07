@@ -46,6 +46,7 @@ namespace FFXIBatchApp
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.StartZoneRoomsExtract = new System.Windows.Forms.Button();
 			this.label10 = new System.Windows.Forms.Label();
 			this.NoesisArgsZone = new System.Windows.Forms.TextBox();
 			this.StartZoneExtract = new System.Windows.Forms.Button();
@@ -92,6 +93,8 @@ namespace FFXIBatchApp
 			this.label6 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
+			this.OpenOutputFolder = new System.Windows.Forms.Button();
+			this.OpenLogFile = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.panel1.SuspendLayout();
 			this.tabControl1.SuspendLayout();
@@ -284,6 +287,7 @@ namespace FFXIBatchApp
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.StartZoneRoomsExtract);
 			this.tabPage1.Controls.Add(this.label10);
 			this.tabPage1.Controls.Add(this.NoesisArgsZone);
 			this.tabPage1.Controls.Add(this.StartZoneExtract);
@@ -296,6 +300,20 @@ namespace FFXIBatchApp
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Zones";
 			this.tabPage1.UseVisualStyleBackColor = true;
+			// 
+			// StartZoneRoomsExtract
+			// 
+			this.StartZoneRoomsExtract.BackColor = System.Drawing.Color.YellowGreen;
+			this.StartZoneRoomsExtract.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.StartZoneRoomsExtract.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.StartZoneRoomsExtract.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.StartZoneRoomsExtract.Location = new System.Drawing.Point(241, 87);
+			this.StartZoneRoomsExtract.Name = "StartZoneRoomsExtract";
+			this.StartZoneRoomsExtract.Size = new System.Drawing.Size(238, 39);
+			this.StartZoneRoomsExtract.TabIndex = 13;
+			this.StartZoneRoomsExtract.Text = "Start Zone Rooms Exporting";
+			this.StartZoneRoomsExtract.UseVisualStyleBackColor = false;
+			this.StartZoneRoomsExtract.Click += new System.EventHandler(this.StartZoneRoomsExtract_Click);
 			// 
 			// label10
 			// 
@@ -316,9 +334,8 @@ namespace FFXIBatchApp
 			this.NoesisArgsZone.Name = "NoesisArgsZone";
 			this.NoesisArgsZone.Size = new System.Drawing.Size(609, 25);
 			this.NoesisArgsZone.TabIndex = 11;
-			this.NoesisArgsZone.Text = "-noanims -ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11opt" +
-    "imizegeo -ff11keepnames -fbxtexrelonly -fbxtexext .png -rotate 180 0 270 -scale " +
-    "120";
+			this.NoesisArgsZone.Text = "-ff11bumpdir normals -ff11keepnames 3 -ff11noshiny -ff11hton 16 -ff11optimizegeo " +
+    "-ff11keepnames -fbxtexrelonly -fbxtexext .png -rotate 180 0 0 -scale 100";
 			// 
 			// StartZoneExtract
 			// 
@@ -866,12 +883,38 @@ namespace FFXIBatchApp
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Support";
 			// 
+			// OpenOutputFolder
+			// 
+			this.OpenOutputFolder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.OpenOutputFolder.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.OpenOutputFolder.Location = new System.Drawing.Point(498, 44);
+			this.OpenOutputFolder.Name = "OpenOutputFolder";
+			this.OpenOutputFolder.Size = new System.Drawing.Size(183, 40);
+			this.OpenOutputFolder.TabIndex = 5;
+			this.OpenOutputFolder.Text = "Open Output Folder";
+			this.OpenOutputFolder.UseVisualStyleBackColor = true;
+			this.OpenOutputFolder.Click += new System.EventHandler(this.OpenOutputFolder_Click);
+			// 
+			// OpenLogFile
+			// 
+			this.OpenLogFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.OpenLogFile.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.OpenLogFile.Location = new System.Drawing.Point(687, 44);
+			this.OpenLogFile.Name = "OpenLogFile";
+			this.OpenLogFile.Size = new System.Drawing.Size(146, 40);
+			this.OpenLogFile.TabIndex = 6;
+			this.OpenLogFile.Text = "Open Log File";
+			this.OpenLogFile.UseVisualStyleBackColor = true;
+			this.OpenLogFile.Click += new System.EventHandler(this.OpenLogFile_Click);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackgroundImage = global::FFXIBatchApp.Properties.Resources.bg4;
 			this.ClientSize = new System.Drawing.Size(1325, 726);
+			this.Controls.Add(this.OpenLogFile);
+			this.Controls.Add(this.OpenOutputFolder);
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.pictureBox1);
 			this.Controls.Add(this.StopEverything);
@@ -977,6 +1020,9 @@ namespace FFXIBatchApp
 		private System.Windows.Forms.Label label23;
 		private System.Windows.Forms.Label label25;
 		private System.Windows.Forms.TextBox SettingsKeyDelay;
+		private System.Windows.Forms.Button StartZoneRoomsExtract;
+		private System.Windows.Forms.Button OpenOutputFolder;
+		private System.Windows.Forms.Button OpenLogFile;
 	}
 }
 
