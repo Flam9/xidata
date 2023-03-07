@@ -1110,8 +1110,8 @@ namespace FFXIBatchApp
 			foreach (string animline in anims)
 			{
 				string[] animData = animline.Split('|');
-				string name = animData[0];
-				string race = animData[1];
+				string race = animData[0];
+				string name = animData[1];
 				string path = animData[2];
 
 				// set save path
