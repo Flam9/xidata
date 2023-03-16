@@ -595,8 +595,8 @@ namespace FFXIBatchApp
 						looknpc["Name"] = "Unknown";
 					}
 
-					// if we have no race, face or body, WE SKIP! All look npcs will have one of these...
-					if (lookdata["Race"] == 0 || lookdata["Face"] == 0 || lookdata["Body"] == 0)
+					// if we have no race, skip
+					if (lookdata["Race"] == 0)
 					{
 						continue;
 					}
