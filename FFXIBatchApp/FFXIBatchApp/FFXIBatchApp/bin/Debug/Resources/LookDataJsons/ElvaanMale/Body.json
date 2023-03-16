@@ -3283,14 +3283,6 @@
     "Identifier": "0em_",
     "Race": "Elvaan Male",
     "Path": "ROM/37/84.DAT",
-    "ModelID": 482,
-    "FileID": 74737,
-    "Type": "Body"
-  },
-  {
-    "Identifier": "0em_",
-    "Race": "Elvaan Male",
-    "Path": "ROM/37/84.DAT",
     "ModelID": 483,
     "FileID": 74738,
     "Type": "Body"

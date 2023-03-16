@@ -4904,6 +4904,14 @@
     "Type": "Katana"
   },
   {
+    "Identifier": "wanz_uzu",
+    "Race": "Hume Female",
+    "Path": "ROM/375/117.DAT",
+    "ModelID": 888,
+    "FileID": 74311,
+    "Type": "Unknown"
+  },
+  {
     "Identifier": "hf_wand6",
     "Race": "Hume Female",
     "Path": "ROM/373/47.DAT",

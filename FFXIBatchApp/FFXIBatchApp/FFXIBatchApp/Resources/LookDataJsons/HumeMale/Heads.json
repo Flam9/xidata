@@ -2534,5 +2534,13 @@
     "ModelID": 480,
     "FileID": 71407,
     "Type": "Head"
+  },
+  {
+    "Identifier": "1hm_",
+    "Race": "Hume Male",
+    "Path": "ROM/376/17.DAT",
+    "ModelID": 481,
+    "FileID": 71408,
+    "Type": "Head"
   }
 ]

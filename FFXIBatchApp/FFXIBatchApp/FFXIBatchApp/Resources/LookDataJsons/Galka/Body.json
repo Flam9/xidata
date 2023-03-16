@@ -3291,14 +3291,6 @@
     "Identifier": "0gl_",
     "Race": "Galka",
     "Path": "ROM/56/112.DAT",
-    "ModelID": 482,
-    "FileID": 80881,
-    "Type": "Body"
-  },
-  {
-    "Identifier": "0gl_",
-    "Race": "Galka",
-    "Path": "ROM/56/112.DAT",
     "ModelID": 483,
     "FileID": 80882,
     "Type": "Body"

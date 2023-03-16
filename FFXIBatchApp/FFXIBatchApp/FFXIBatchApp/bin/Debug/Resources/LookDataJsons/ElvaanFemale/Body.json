@@ -3291,14 +3291,6 @@
     "Identifier": "0ef_",
     "Race": "Elvaan Female",
     "Path": "ROM/42/57.DAT",
-    "ModelID": 482,
-    "FileID": 76273,
-    "Type": "Body"
-  },
-  {
-    "Identifier": "0ef_",
-    "Race": "Elvaan Female",
-    "Path": "ROM/42/57.DAT",
     "ModelID": 483,
     "FileID": 76274,
     "Type": "Body"

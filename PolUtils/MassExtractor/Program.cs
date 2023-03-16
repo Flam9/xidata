@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -280,6 +281,9 @@ namespace MassExtractor
                         Directory.CreateDirectory("resources");
                     }
 
+                    Program.ExtractFile(23993, "test.xml");
+
+                    /*
                     Program.ExtractFile(81, "resources/spellAbilCommon.xml");
 
                     Program.ExtractFile(73, "resources/generalE.xml");
@@ -344,6 +348,7 @@ namespace MassExtractor
                     Program.ExtractFile(55605, "resources/statusJ.xml");
                     */
 
+                    /*
 					// Interesting Data
 					Program.ExtractFile(11, "old-spells-1.xml");
                     Program.ExtractFile(73, "items-general.xml");
@@ -439,7 +444,7 @@ namespace MassExtractor
                     Program.ExtractFile(55736, "missions-moogle.xml");
                     Program.ExtractFile(55737, "missions-shantotto.xml");
                     
-                    
+                    */
                     
                 }
                 DateTime ExtractionEnd = DateTime.Now;

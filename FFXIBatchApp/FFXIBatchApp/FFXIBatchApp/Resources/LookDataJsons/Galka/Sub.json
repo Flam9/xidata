@@ -2680,7 +2680,7 @@
     "Type": "Sword"
   },
   {
-    "Identifier": "2hs_maou",
+    "Identifier": "2hs_maou\u0002",
     "Race": "Galka",
     "Path": "ROM/357/79.DAT",
     "ModelID": 552,
@@ -2992,7 +2992,7 @@
     "Type": "Club"
   },
   {
-    "Identifier": "pmsw01",
+    "Identifier": "pmsw01\u0002",
     "Race": "Galka",
     "Path": "ROM/364/57.DAT",
     "ModelID": 630,
@@ -3000,12 +3000,20 @@
     "Type": "Katana"
   },
   {
-    "Identifier": "pmsw01",
+    "Identifier": "pmsw01\u0002",
     "Race": "Galka",
     "Path": "ROM/370/80.DAT",
     "ModelID": 631,
     "FileID": 81990,
     "Type": "Katana"
+  },
+  {
+    "Identifier": "wanz_uzu",
+    "Race": "Galka",
+    "Path": "ROM/375/122.DAT",
+    "ModelID": 632,
+    "FileID": 81991,
+    "Type": "Unknown"
   },
   {
     "Identifier": "an_sword",
@@ -3296,7 +3304,7 @@
     "Type": "Shield"
   },
   {
-    "Identifier": "tate",
+    "Identifier": "tate\u0002",
     "Race": "Galka",
     "Path": "ROM/372/26.DAT",
     "ModelID": 674,
@@ -4024,7 +4032,7 @@
     "Type": "Club"
   },
   {
-    "Identifier": "pmsw01",
+    "Identifier": "pmsw01\u0002",
     "Race": "Galka",
     "Path": "ROM/364/64.DAT",
     "ModelID": 886,
@@ -4032,7 +4040,7 @@
     "Type": "Katana"
   },
   {
-    "Identifier": "pmsw01",
+    "Identifier": "pmsw01\u0002",
     "Race": "Galka",
     "Path": "ROM/370/87.DAT",
     "ModelID": 887,
@@ -4328,7 +4336,7 @@
     "Type": "Shield"
   },
   {
-    "Identifier": "tate",
+    "Identifier": "tate\u0002",
     "Race": "Galka",
     "Path": "ROM/372/26.DAT",
     "ModelID": 930,
@@ -5056,7 +5064,7 @@
     "Type": "Club"
   },
   {
-    "Identifier": "pmsw01",
+    "Identifier": "pmsw01\u0002",
     "Race": "Galka",
     "Path": "ROM/364/64.DAT",
     "ModelID": 1142,
@@ -5064,7 +5072,7 @@
     "Type": "Katana"
   },
   {
-    "Identifier": "pmsw01",
+    "Identifier": "pmsw01\u0002",
     "Race": "Galka",
     "Path": "ROM/370/87.DAT",
     "ModelID": 1143,
@@ -5360,7 +5368,7 @@
     "Type": "Shield"
   },
   {
-    "Identifier": "tate",
+    "Identifier": "tate\u0002",
     "Race": "Galka",
     "Path": "ROM/372/26.DAT",
     "ModelID": 1186,

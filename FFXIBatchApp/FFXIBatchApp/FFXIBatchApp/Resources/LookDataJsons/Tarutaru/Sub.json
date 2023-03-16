@@ -2882,9 +2882,9 @@
   {
     "Identifier": "clb_e_ne",
     "Race": "Tarutaru",
-    "Path": "ROM/361/112.DAT",
+    "Path": "ROM/361/109.DAT",
     "ModelID": 604,
-    "FileID": 83243,
+    "FileID": 82475,
     "Type": "Club"
   },
   {
@@ -2968,7 +2968,7 @@
     "Type": "Club"
   },
   {
-    "Identifier": "pmsw01",
+    "Identifier": "pmsw01\u0002",
     "Race": "Tarutaru",
     "Path": "ROM/364/62.DAT",
     "ModelID": 630,
@@ -2976,7 +2976,7 @@
     "Type": "Katana"
   },
   {
-    "Identifier": "pmsw01",
+    "Identifier": "pmsw01\u0002",
     "Race": "Tarutaru",
     "Path": "ROM/370/85.DAT",
     "ModelID": 631,
@@ -3272,7 +3272,7 @@
     "Type": "Shield"
   },
   {
-    "Identifier": "tate",
+    "Identifier": "tate\u0002",
     "Race": "Tarutaru",
     "Path": "ROM/372/24.DAT",
     "ModelID": 674,
@@ -3914,9 +3914,9 @@
   {
     "Identifier": "clb_e_ne",
     "Race": "Tarutaru",
-    "Path": "ROM/361/112.DAT",
+    "Path": "ROM/361/109.DAT",
     "ModelID": 860,
-    "FileID": 83243,
+    "FileID": 82475,
     "Type": "Club"
   },
   {
@@ -4000,7 +4000,7 @@
     "Type": "Club"
   },
   {
-    "Identifier": "pmsw01",
+    "Identifier": "pmsw01\u0002",
     "Race": "Tarutaru",
     "Path": "ROM/364/62.DAT",
     "ModelID": 886,
@@ -4008,7 +4008,7 @@
     "Type": "Katana"
   },
   {
-    "Identifier": "pmsw01",
+    "Identifier": "pmsw01\u0002",
     "Race": "Tarutaru",
     "Path": "ROM/370/85.DAT",
     "ModelID": 887,
@@ -4304,7 +4304,7 @@
     "Type": "Shield"
   },
   {
-    "Identifier": "tate",
+    "Identifier": "tate\u0002",
     "Race": "Tarutaru",
     "Path": "ROM/372/24.DAT",
     "ModelID": 930,
@@ -4946,9 +4946,9 @@
   {
     "Identifier": "clb_e_ne",
     "Race": "Tarutaru",
-    "Path": "ROM/361/112.DAT",
+    "Path": "ROM/361/109.DAT",
     "ModelID": 1116,
-    "FileID": 83243,
+    "FileID": 82475,
     "Type": "Club"
   },
   {
@@ -5032,7 +5032,7 @@
     "Type": "Club"
   },
   {
-    "Identifier": "pmsw01",
+    "Identifier": "pmsw01\u0002",
     "Race": "Tarutaru",
     "Path": "ROM/364/62.DAT",
     "ModelID": 1142,
@@ -5040,7 +5040,7 @@
     "Type": "Katana"
   },
   {
-    "Identifier": "pmsw01",
+    "Identifier": "pmsw01\u0002",
     "Race": "Tarutaru",
     "Path": "ROM/370/85.DAT",
     "ModelID": 1143,
@@ -5336,7 +5336,7 @@
     "Type": "Shield"
   },
   {
-    "Identifier": "tate",
+    "Identifier": "tate\u0002",
     "Race": "Tarutaru",
     "Path": "ROM/372/24.DAT",
     "ModelID": 1186,

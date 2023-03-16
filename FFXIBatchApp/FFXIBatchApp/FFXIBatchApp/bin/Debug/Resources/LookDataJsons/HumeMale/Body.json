@@ -3283,14 +3283,6 @@
     "Identifier": "0hm_",
     "Race": "Hume Male",
     "Path": "ROM/28/8.DAT",
-    "ModelID": 482,
-    "FileID": 71665,
-    "Type": "Body"
-  },
-  {
-    "Identifier": "0hm_",
-    "Race": "Hume Male",
-    "Path": "ROM/28/8.DAT",
     "ModelID": 483,
     "FileID": 71666,
     "Type": "Body"

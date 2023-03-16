@@ -1266,6 +1266,14 @@
   {
     "Identifier": "hf_sti1_",
     "Race": "Hume Male",
+    "Path": "ROM/30/66.DAT",
+    "ModelID": 221,
+    "FileID": 8613,
+    "Type": "Club"
+  },
+  {
+    "Identifier": "hf_sti1_",
+    "Race": "Hume Male",
     "Path": "ROM/30/67.DAT",
     "ModelID": 222,
     "FileID": 8614,
@@ -4918,6 +4926,14 @@
     "ModelID": 887,
     "FileID": 72774,
     "Type": "Katana"
+  },
+  {
+    "Identifier": "wanz_uzu",
+    "Race": "Hume Male",
+    "Path": "ROM/375/116.DAT",
+    "ModelID": 888,
+    "FileID": 72775,
+    "Type": "Unknown"
   },
   {
     "Identifier": "hf_wand6",

@@ -3291,14 +3291,6 @@
     "Identifier": "0mt_",
     "Race": "Mithra",
     "Path": "ROM/52/14.DAT",
-    "ModelID": 482,
-    "FileID": 79345,
-    "Type": "Body"
-  },
-  {
-    "Identifier": "0mt_",
-    "Race": "Mithra",
-    "Path": "ROM/52/14.DAT",
     "ModelID": 483,
     "FileID": 79346,
     "Type": "Body"

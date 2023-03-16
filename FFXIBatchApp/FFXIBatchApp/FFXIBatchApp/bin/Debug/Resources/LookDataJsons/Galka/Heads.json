@@ -2518,5 +2518,13 @@
     "ModelID": 480,
     "FileID": 80623,
     "Type": "Head"
+  },
+  {
+    "Identifier": "1gl_",
+    "Race": "Galka",
+    "Path": "ROM/376/23.DAT",
+    "ModelID": 481,
+    "FileID": 80624,
+    "Type": "Head"
   }
 ]

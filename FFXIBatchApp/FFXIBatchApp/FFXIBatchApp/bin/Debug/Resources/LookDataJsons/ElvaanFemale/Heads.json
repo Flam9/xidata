@@ -2518,5 +2518,13 @@
     "ModelID": 480,
     "FileID": 76015,
     "Type": "Head"
+  },
+  {
+    "Identifier": "1ef_",
+    "Race": "Elvaan Female",
+    "Path": "ROM/376/20.DAT",
+    "ModelID": 481,
+    "FileID": 76016,
+    "Type": "Head"
   }
 ]

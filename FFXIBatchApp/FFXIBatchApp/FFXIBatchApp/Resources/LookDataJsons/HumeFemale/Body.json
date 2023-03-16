@@ -3291,14 +3291,6 @@
     "Identifier": "0hf_",
     "Race": "Hume Female",
     "Path": "ROM/32/112.DAT",
-    "ModelID": 482,
-    "FileID": 73201,
-    "Type": "Body"
-  },
-  {
-    "Identifier": "0hf_",
-    "Race": "Hume Female",
-    "Path": "ROM/32/112.DAT",
     "ModelID": 483,
     "FileID": 73202,
     "Type": "Body"

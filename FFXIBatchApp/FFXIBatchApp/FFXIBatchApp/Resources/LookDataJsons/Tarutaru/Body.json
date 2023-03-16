@@ -3283,14 +3283,6 @@
     "Identifier": "0tr_",
     "Race": "Tarutaru",
     "Path": "ROM/47/18.DAT",
-    "ModelID": 482,
-    "FileID": 77809,
-    "Type": "Body"
-  },
-  {
-    "Identifier": "0tr_",
-    "Race": "Tarutaru",
-    "Path": "ROM/47/18.DAT",
     "ModelID": 483,
     "FileID": 77810,
     "Type": "Body"

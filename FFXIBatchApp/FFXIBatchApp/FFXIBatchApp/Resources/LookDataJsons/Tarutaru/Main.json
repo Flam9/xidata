@@ -4904,6 +4904,14 @@
     "Type": "Katana"
   },
   {
+    "Identifier": "wanz_uzu",
+    "Race": "Tarutaru",
+    "Path": "ROM/375/120.DAT",
+    "ModelID": 888,
+    "FileID": 78919,
+    "Type": "Unknown"
+  },
+  {
     "Identifier": "hf_wand6",
     "Race": "Tarutaru",
     "Path": "ROM/373/52.DAT",

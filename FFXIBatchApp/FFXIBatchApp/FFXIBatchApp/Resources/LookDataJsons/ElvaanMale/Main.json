@@ -4912,6 +4912,14 @@
     "Type": "Katana"
   },
   {
+    "Identifier": "wanz_uzu",
+    "Race": "Elvaan Male",
+    "Path": "ROM/375/118.DAT",
+    "ModelID": 888,
+    "FileID": 75847,
+    "Type": "Unknown"
+  },
+  {
     "Identifier": "hf_wand6",
     "Race": "Elvaan Male",
     "Path": "ROM/373/48.DAT",

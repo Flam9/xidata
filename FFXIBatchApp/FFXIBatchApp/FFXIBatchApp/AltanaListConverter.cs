@@ -581,7 +581,8 @@ namespace FFXIBatchApp
 
 					// add the look data labeled
 					looknpc["ID"] = npcdata[0];
-					looknpc["Name"] = FinalizeName(npcdata[1]);
+					looknpc["Name"] = npcdata[1];
+					looknpc["UEID"] = $"{npcdata[0]}_{FinalizeName(npcdata[1])}";
 					looknpc["PosRot"] = npcdata[2];
 					looknpc["PosX"] = npcdata[3];
 					looknpc["PosY"] = npcdata[4];

@@ -2542,5 +2542,13 @@
     "ModelID": 480,
     "FileID": 77551,
     "Type": "Head"
+  },
+  {
+    "Identifier": "1tr_",
+    "Race": "Tarutaru",
+    "Path": "ROM/376/21.DAT",
+    "ModelID": 481,
+    "FileID": 77552,
+    "Type": "Head"
   }
 ]

@@ -4912,6 +4912,14 @@
     "Type": "Katana"
   },
   {
+    "Identifier": "wanz_uzu",
+    "Race": "Mithra",
+    "Path": "ROM/375/121.DAT",
+    "ModelID": 888,
+    "FileID": 80455,
+    "Type": "Unknown"
+  },
+  {
     "Identifier": "hf_wand6",
     "Race": "Mithra",
     "Path": "ROM/373/53.DAT",

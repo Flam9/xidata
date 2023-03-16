@@ -2510,5 +2510,13 @@
     "ModelID": 480,
     "FileID": 79087,
     "Type": "Head"
+  },
+  {
+    "Identifier": "1mt_",
+    "Race": "Mithra",
+    "Path": "ROM/376/22.DAT",
+    "ModelID": 481,
+    "FileID": 79088,
+    "Type": "Head"
   }
 ]

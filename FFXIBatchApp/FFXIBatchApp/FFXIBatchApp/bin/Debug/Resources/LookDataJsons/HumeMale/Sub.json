@@ -2984,7 +2984,7 @@
     "Type": "Club"
   },
   {
-    "Identifier": "pmsw01",
+    "Identifier": "pmsw01\u0002",
     "Race": "Hume Male",
     "Path": "ROM/364/58.DAT",
     "ModelID": 630,
@@ -2992,7 +2992,7 @@
     "Type": "Katana"
   },
   {
-    "Identifier": "pmsw01",
+    "Identifier": "pmsw01\u0002",
     "Race": "Hume Male",
     "Path": "ROM/370/81.DAT",
     "ModelID": 631,
@@ -3288,7 +3288,7 @@
     "Type": "Shield"
   },
   {
-    "Identifier": "tate",
+    "Identifier": "tate\u0002",
     "Race": "Hume Male",
     "Path": "ROM/372/20.DAT",
     "ModelID": 674,
@@ -4016,7 +4016,7 @@
     "Type": "Club"
   },
   {
-    "Identifier": "pmsw01",
+    "Identifier": "pmsw01\u0002",
     "Race": "Hume Male",
     "Path": "ROM/364/58.DAT",
     "ModelID": 886,
@@ -4024,7 +4024,7 @@
     "Type": "Katana"
   },
   {
-    "Identifier": "pmsw01",
+    "Identifier": "pmsw01\u0002",
     "Race": "Hume Male",
     "Path": "ROM/370/81.DAT",
     "ModelID": 887,
