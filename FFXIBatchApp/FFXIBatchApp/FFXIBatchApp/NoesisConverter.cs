@@ -236,7 +236,7 @@ namespace FFXIBatchApp
 				// the save to path
 				string saveTo = $"{savepath2}\\NPC\\{npc.Zone}";
 				Directory.CreateDirectory(saveTo);
-				saveTo = $"{saveTo}\\{npc.ID}_{npc.Name}.ff11datset";
+				saveTo = $"{saveTo}\\{npc.UEID}.ff11datset";
 				results.Add($"{npc.ID}|{npc.Name}|{npc.Zone}|{saveTo}");
 				total++;
 
