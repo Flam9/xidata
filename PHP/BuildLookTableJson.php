@@ -2,28 +2,37 @@
 
 $lookTable = [];
 
-function buildLookTable() {
-    global $lookTable;
+/**
+ * Grab the current look table as we're only going to be replacing: Body, Head, Hands, Feet and Legs,
+ * Face won't be changing and I haven't done Main/Range/Sub yet.
+ */
+$look_table = file_get_contents(__DIR__ .'/LookTable.json');
+$look_table = json_decode($look_table, true);
 
-    $dirJson = __DIR__ .'/LookDataJsons';
-    $dirJsonScan = array_diff(scandir($dirJson), ['..', '.']);
+// now load our up to date look to file list
+$look_to_file_list = file_get_contents(__DIR__ .'/LookToFile_List.json');
+$look_to_file_list = json_decode($look_to_file_list, true);
 
-    foreach ($dirJsonScan as $folderRace) {
-        $jsonGearFiles = array_diff(scandir("{$dirJson}/{$folderRace}"), ['..', '.']);
+echo("Building Look Table JSON for xi data...\n");
 
-        foreach ($jsonGearFiles as $jsonGearFile) {
-            $jsonGear = file_get_contents("{$dirJson}/{$folderRace}/{$jsonGearFile}");
-            $jsonGear = json_decode($jsonGear, true);
+// Loop through the look to file and replace the entries in look table
+foreach($look_to_file_list as $race => $slot_models) {
+    foreach ($slot_models as $slot => $dats) {
+        $slot = ucwords($slot);
 
-            $slot =  pathinfo($jsonGearFile, PATHINFO_FILENAME);
+        foreach ($dats as $i => $datpath) {
+            [$model_id, $file_id, $file_path] = explode("|", $datpath);
 
-            $lookTable[$folderRace][$slot] = $jsonGear;
+            $look_table[$race][$slot][$i] = [
+                'FileID' => $file_id,
+                'ModelID' => $model_id,
+                'Path' => $file_path
+            ];
         }
     }
 }
 
-// Build look table ...
-buildLookTable();
-
 // Store for simplicity
-file_put_contents(__DIR__ .'/LookTable.json', json_encode($lookTable, JSON_PRETTY_PRINT));
+file_put_contents(__DIR__ .'/LookTable.json', json_encode($look_table, JSON_PRETTY_PRINT));
+
+echo("Done!\n\n");

@@ -21,7 +21,7 @@ function getModelIdFromLookData($lookdata) {
 }
 
 // the look string to decode
-$look = "0x0100020800100320033003400350006000700000";
+$look = "0x0100030100100421C930B9400241006000700000";
 
 /**
  *              | --- this is all gear --------|
