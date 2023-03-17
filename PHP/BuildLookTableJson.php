@@ -26,7 +26,7 @@ foreach($look_to_file_list as $race => $slot_models) {
             $look_table[$race][$slot][$i] = [
                 'FileID' => $file_id,
                 'ModelID' => $model_id,
-                'Path' => $file_path
+                'Path' => str_ireplace("\\", "/", $file_path)
             ];
         }
     }
