@@ -11,4 +11,8 @@
 FROM npc_list 
 INNER JOIN zone_settings
 ON (npc_list.npcid & 0xFFF000) >> 12 = zone_settings.zoneid
-WHERE npc_list.polutils_name != ''
+WHERE 
+    npc_list.polutils_name != ''
+    AND npc_list.entityFlags IN (3, 25, 27, 29)
+    AND npc_list.polutils_name != '???' -- can't be arsed dealing with these...
+    AND npc_list.status = 0

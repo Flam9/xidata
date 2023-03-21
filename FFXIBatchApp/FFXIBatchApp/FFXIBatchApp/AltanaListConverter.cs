@@ -584,11 +584,16 @@ namespace FFXIBatchApp
 					looknpc["Name"] = npcdata[1];
 					looknpc["UEID"] = $"{npcdata[0]}_{FinalizeName(npcdata[1])}";
 					looknpc["PosRot"] = npcdata[2];
-					looknpc["PosX"] = npcdata[3];
-					looknpc["PosY"] = npcdata[4];
-					looknpc["PosZ"] = npcdata[5];
 					looknpc["Content"] = npcdata[7];
 					looknpc["Zone"] = FinalizeName(npcdata[8]);
+
+					// this is intentionally 3,5,4 because for some reason LandSandBoat (and I assume the XI engine) uses Y for up/down but 
+					// most 3d packages and game engines these days use Z for up/down... So I've intentionally swapped these so they match
+					// better in a game engine as well as things like Windower.
+					looknpc["PosX"] = npcdata[3];
+					looknpc["PosY"] = npcdata[5];
+					looknpc["PosZ"] = npcdata[4];
+					
 
 					if (looknpc["Name"].Length == 0)
 					{
