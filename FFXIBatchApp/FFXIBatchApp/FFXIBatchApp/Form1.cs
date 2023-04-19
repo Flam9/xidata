@@ -29,7 +29,12 @@ namespace FFXIBatchApp
         [DllImport("user32.dll")]
         static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
 
-        Thread ActiveExtractThread;
+		[DllImport("user32.dll")]
+		static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
+
+		delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+
+		Thread ActiveExtractThread;
         bool ActiveThreadRunning = false;
 
 		public Form1()
@@ -159,7 +164,7 @@ namespace FFXIBatchApp
         /// <param name="key"></param>
         /// <param name="wait"></param>
         /// <param name="window"></param>
-        private void SendKey(string key, int wait = 0, string window = "Noesis")
+        private void SendKey(string key, int wait = 300, string window = "Noesis")
         {
             try
             {
@@ -173,12 +178,6 @@ namespace FFXIBatchApp
                 // send the key
                 //ConsoleLog($">>(SendKey) Key: {key}");
                 SendKeys.SendWait(key);
-
-				if (wait == 0)
-				{
-					wait = int.Parse(SettingsKeyDelay.Text);
-				}
-
                 Thread.Sleep(wait);
             }
             catch (Exception Ex)
@@ -260,26 +259,27 @@ namespace FFXIBatchApp
         /// <returns></returns>
         private bool WaitForActiveWindow(string windowTitle, int waitInSeconds = 60, bool stopOnError = false)
         {
-			// 2x because we delay 1/2
 			int delay = waitInSeconds * 2;
 
 			// Will wait for a max of 30 seconds.
 			for (int i = 0; i <= delay; i++)
             {
-                if (GetActiveWindowTitle() == windowTitle)
+				// ConsoleLog($"Active Window = {GetActiveWindowTitle()}");
+
+				if (GetActiveWindowTitle() == windowTitle)
                 {
                     return true;
                 }
 
-                Thread.Sleep(500);
+                Thread.Sleep(400);
             }
 
             ConsoleLog($"!! Error: Could not detect the Window: {windowTitle} - Current active window: {GetActiveWindowTitle()}");
 
 			// send escape a couple times
-			SendKey("{ESCAPE}", 250, "");
-			SendKey("{ESCAPE}", 250, "");
-			SendKey("{ESCAPE}", 250, "");
+			SendKey("{ESCAPE}", 300, "");
+			SendKey("{ESCAPE}", 300, "");
+			SendKey("{ESCAPE}", 300, "");
 
 			if (stopOnError)
 			{
@@ -289,6 +289,38 @@ namespace FFXIBatchApp
             return false;
         }
 
+		private bool WaitForActiveWindowCount(string windowTitle, int waitInSeconds = 60, int windowCount = 1, bool stopOnError = false)
+		{
+			int delay = waitInSeconds * 2;
+
+			// Will wait for a max of 30 seconds.
+			for (int i = 0; i <= delay; i++)
+			{
+				// ConsoleLog($"{windowTitle} count = {CountActiveWindows(windowTitle)}");
+
+				if (CountActiveWindows(windowTitle) == windowCount)
+				{
+					return true;
+				}
+
+				Thread.Sleep(400);
+			}
+
+			ConsoleLog($"!! Error: Could not find enough windows titled {windowTitle}");
+
+			// send escape a couple times
+			SendKey("{ESCAPE}", 300, "");
+			SendKey("{ESCAPE}", 300, "");
+			SendKey("{ESCAPE}", 300, "");
+
+			if (stopOnError)
+			{
+				StopActiveThreadInternal();
+			}
+
+			return false;
+		}
+
 		/// <summary>
 		/// Wait for the a process to start
 		/// </summary>
@@ -296,7 +328,6 @@ namespace FFXIBatchApp
 		/// <returns></returns>
 		private bool WaitForProcess(string name, int waitInSeconds = 60, bool stopOnError = false)
 		{
-			// 2x because we delay 1/2
 			int delay = waitInSeconds * 2;
 
 			// Will wait for a max of 30 seconds.
@@ -307,7 +338,7 @@ namespace FFXIBatchApp
 					return true;
 				}
 
-				Thread.Sleep(500);
+				Thread.Sleep(400);
 			}
 
 			ConsoleLog($"!! Error: Could not detect the open process: {name}");
@@ -336,6 +367,28 @@ namespace FFXIBatchApp
             }
             return null;
         }
+
+		private int CountActiveWindows(string windowTitle)
+		{
+			List<IntPtr> windows = new List<IntPtr>();
+			EnumWindows(delegate (IntPtr hWnd, IntPtr lParam)
+			{
+				windows.Add(hWnd);
+				return true;
+			}, IntPtr.Zero);
+
+			int count = 0;
+			foreach (IntPtr hWnd in windows)
+			{
+				StringBuilder sb = new StringBuilder(256);
+				if (GetWindowText(hWnd, sb, sb.Capacity) > 0 && sb.ToString() == windowTitle)
+				{
+					count++;
+				}
+			}
+
+			return count;
+		}
 
 		/// <summary>
 		/// Checks if Noesis is running, if not, start it!
@@ -674,8 +727,12 @@ namespace FFXIBatchApp
 		/// <param name="source"></param>
 		/// <param name="destination"></param>
 		/// <param name="args"></param>
-		private void HandleNoesisExport(string source, string destination, string args)
+		private void HandleNoesisExport(string source, string destination, string args, string race = "")
 		{
+			string ffxiPath = Settings.GetSetting("PathFFXI");
+			string raceSkeleton = FF11Race.GetSkeleton(race);
+			string raceSkeletonPath = $"{ffxiPath}\\ROM{raceSkeleton}.DAT";
+
 			// Open a DAT
 			SendKey("%f", 400);
 			SendKey("o", 400);
@@ -683,15 +740,22 @@ namespace FFXIBatchApp
 			if (WaitForActiveWindow("Open"))
 			{
 				SendText(source, 400, "Open");
-				SendKey("{ENTER}", 1500, "Open");
+				SendKey("{ENTER}", 1000, "Open");
 
-				// If the open window, opens again, it means this model has a skeleton, we will skip for now
-				// todo - one day, get the skeleton for npcs
+				// If the open window, opens again, it means this model has a skeleton
 				if (GetActiveWindowTitle() == "Open")
 				{
-					ConsoleLog(">> This extract requires a skeleton, closing open window.");
-					ConsoleLog(">> The extract will likely be buggy.");
-					SendKey("{ESCAPE}", 500, "");
+					if (string.IsNullOrEmpty(race))
+					{
+						SendKey("{ESCAPE}", 200, "");
+						SendKey("{ESCAPE}", 200, "");
+					} 
+					else
+					{
+						SendText(raceSkeletonPath, 300, "Open");
+						SendKey("{ENTER}", 1500, "Open");
+						Thread.Sleep(1000);
+					}
 				}
 
 				// Now open the Export Window
@@ -721,24 +785,104 @@ namespace FFXIBatchApp
 					SendKeyTabN(1);
 
 					// Paste Noesis args
-					SendText(args, 250, "Export Media");
-					SendKey("{ENTER}", 250, "Export Media");
+					SendText(args, 300, "Export Media");
+					SendKey("{ENTER}", 1000, "Export Media");
 
-					// skip "open" window if it exists
+					// If the open window, opens again, it means this model has a skeleton
 					if (GetActiveWindowTitle() == "Open")
 					{
-						SendKey("{ESCAPE}", 500, "");
+						if (string.IsNullOrEmpty(race))
+						{
+							SendKey("{ESCAPE}", 200, "");
+							SendKey("{ESCAPE}", 200, "");
+						}
+						else
+						{
+							SendText(raceSkeletonPath, 300, "Open");
+							SendKey("{ENTER}", 1500, "Open");
+							Thread.Sleep(1000);
+						}
 					}
 
 					// The complete window is called Noesis
 					// We wait a long time here because exports can have a lot of files
-					if (WaitForActiveWindow("Noesis", 400, true))
+					if (WaitForActiveWindowCount("Noesis", 1000, 2, true))
 					{
-						Thread.Sleep(50);
-
 						// close the Confirm and Export window
-						SendKey("{ESCAPE}", 250, "");
-						SendKey("{ESCAPE}", 250, "Export Media");
+						Thread.Sleep(50);
+						SendKey("{ESCAPE}", 300, "");
+						SendKey("{ESCAPE}", 300, "");
+						SendKey("{ESCAPE}", 300, "");
+					}
+				}
+			}
+		}
+
+		private void HandleNoesisExportAnims(string source, string destination, string args, string race = "")
+		{
+			string ffxiPath = Settings.GetSetting("PathFFXI");
+			string raceSkeleton = FF11Race.GetSkeleton(race);
+			string raceSkeletonPath = $"{ffxiPath}\\ROM{raceSkeleton}.DAT";
+
+			// Open a DAT
+			SendKey("%f", 400);
+			SendKey("o", 400);
+
+			if (WaitForActiveWindow("Open"))
+			{
+				SendText(source, 400, "Open");
+				SendKey("{ENTER}", 1000, "Open");
+
+				// Escape any popups
+				SendKey("{ESCAPE}", 300, "");
+				SendKey("{ESCAPE}", 300, "");
+				SendKey("{ESCAPE}", 300, "");
+
+				// Now open the Export Window
+				SendKey("%f", 400);
+				SendKey("e", 400);
+
+				// Wait for the Export Media window to open
+				if (WaitForActiveWindow("Export Media"))
+				{
+					// Destination
+					SendKeyTabN(3);
+					SendText(destination, 250, "Export Media");
+
+					// Animation output type
+					SendKeyTabN(4);
+
+					// Loop down to noemultifbx
+					SendKeyN(12, "{DOWN}", 8);
+
+					// Advanced options
+					SendKeyTabN(1);
+
+					// Paste Noesis args
+					SendText(args, 300, "Export Media");
+					SendKey("{ENTER}", 500, "Export Media");
+					Thread.Sleep(1000);
+
+					// If an "Open" modal popped up, it's likely skeleton, so we'll insert that
+					if (GetActiveWindowTitle() == "Open")
+					{
+						SendText(raceSkeletonPath, 300, "Open");
+						SendKey("{ENTER}", 500, "Open");
+						Thread.Sleep(1000);
+					}
+
+					// --------------------------------------------
+					// Export wil be starting now....
+					// --------------------------------------------
+
+					// The complete window is called Noesis
+					// We wait a long time here because exports can have a lot of files
+					if (WaitForActiveWindowCount("Noesis", 1000, 2, true))
+					{
+						// close the Confirm and Export window
+						SendKey("{ESCAPE}", 300, "");
+						SendKey("{ESCAPE}", 300, "");
+						SendKey("{ESCAPE}", 300, "");
 					}
 				}
 			}
@@ -1095,11 +1239,11 @@ namespace FFXIBatchApp
 		/// </summary>
 		private void HandleAnimationsExtract()
         {
-			string filename = $"ToolData\\anims_2.txt";
+			string filename = $"ToolData\\anims_1.txt";
 			string outputFolder = "ToolOutput_Animations";
 			string noesisArgs = NoesisArgsAnimations.Text.Trim();
 			string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-			int skipped = 0;
+			string ffxiPath = Settings.GetSetting("PathFFXI");
 			FlowIntroduction("Animations");
 			StartNoesis();
 
@@ -1111,30 +1255,26 @@ namespace FFXIBatchApp
 			{
 				string[] animData = animline.Split('|');
 				string race = animData[0];
-				string name = animData[1];
-				string path = animData[2];
+				string type = animData[1];
+				string name = animData[2];
+				string path = animData[3];
 
 				// set save path
-				string saveTo = $"{outputFolder}\\{race}\\{name}";
+				string saveTo = $"{outputFolder}\\{race}\\{type}\\{name}";
 				Directory.CreateDirectory(saveTo);
 
 				// Begin Noesis Export
-				string sourceFile = $"{appDirectory}{path}";
+				string sourceFile = $"{ffxiPath}\\ROM{path}.DAT";
 				string destinationFile = $"{appDirectory}{saveTo}\\{name}.fbx";
 
-				// if destination file exists, skip
-				if (File.Exists(destinationFile)) { skipped++; continue; }
+				// skip if any fbx files already exist
+				bool fbxFilesFound = Directory.GetFiles($"{appDirectory}{saveTo}\\", "*.fbx").Length > 0;
+				if (fbxFilesFound) { continue; }
 
-				if (skipped > 0)
-				{
-					ConsoleLog($"-- Skipped {skipped} already existsing extracts.");
-					skipped = 0;
-				}
-
-				ConsoleLog($"-- {race}: {name}");
+				ConsoleLog($"-- Anim Export: {race} - {type} - {name}");
 
 				// Handle the Noesis Export part!
-				HandleNoesisExport(sourceFile, destinationFile, noesisArgs);
+				HandleNoesisExportAnims(sourceFile, destinationFile, noesisArgs, race);
 			}
 
 			FlowFinished(outputFolder);

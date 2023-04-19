@@ -194,13 +194,6 @@ X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Re
 X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\AltanaList\PC\Tarutaru\WS.csv
 X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\LookData\LookNpcData.csv
 X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\LookData\LookTable.json
-X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\DatsetTemplate\Animations_Elvaan_Female.template
-X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\DatsetTemplate\Animations_Elvaan_Male.template
-X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\DatsetTemplate\Animations_Galka.template
-X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\DatsetTemplate\Animations_Hume_Female.template
-X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\DatsetTemplate\Animations_Hume_Male.template
-X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\DatsetTemplate\Animations_Mithra.template
-X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\DatsetTemplate\Animations_Tarutaru.template
 X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\ZoneList\Zones_Abyssea.txt
 X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\ZoneList\Zones_BaseGame.txt
 X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\ZoneList\Zones_ChainsOfPromathia.txt
@@ -210,13 +203,6 @@ X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Re
 X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\ZoneList\Zones_TreasuresOfAhtUrhgan.txt
 X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\ZoneList\Zones_WingsOfTheGoddess.txt
 X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\ZoneList\ZoneRoomsDats.txt
-X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\DatsetAnims\Anims_Elvaan_Female_Basic.ff11datset
-X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\DatsetAnims\Anims_Elvaan_Male_Basic.ff11datset
-X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\DatsetAnims\Anims_Galka_Basic.ff11datset
-X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\DatsetAnims\Anims_Hume_Female_Basic.ff11datset
-X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\DatsetAnims\Anims_Hume_Male_Basic.ff11datset
-X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\DatsetAnims\Anims_Mithra_Basic.ff11datset
-X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\DatsetAnims\Anims_Tarutaru_Basic.ff11datset
 X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\Resources\LookData\LookQuery.sql
 X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\FFXIBatchApp.exe.config
 X:\project-vr\Scripts\xidata\FFXIBatchApp\FFXIBatchApp\FFXIBatchApp\bin\Debug\FFXIBatchApp.exe

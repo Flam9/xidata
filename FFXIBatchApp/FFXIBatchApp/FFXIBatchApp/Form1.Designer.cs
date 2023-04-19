@@ -85,8 +85,6 @@ namespace FFXIBatchApp
 			this.label18 = new System.Windows.Forms.Label();
 			this.label17 = new System.Windows.Forms.Label();
 			this.tabPage7 = new System.Windows.Forms.TabPage();
-			this.label25 = new System.Windows.Forms.Label();
-			this.SettingsKeyDelay = new System.Windows.Forms.TextBox();
 			this.label24 = new System.Windows.Forms.Label();
 			this.label23 = new System.Windows.Forms.Label();
 			this.PathNoesis = new System.Windows.Forms.TextBox();
@@ -785,8 +783,6 @@ namespace FFXIBatchApp
 			// 
 			// tabPage7
 			// 
-			this.tabPage7.Controls.Add(this.label25);
-			this.tabPage7.Controls.Add(this.SettingsKeyDelay);
 			this.tabPage7.Controls.Add(this.label24);
 			this.tabPage7.Controls.Add(this.label23);
 			this.tabPage7.Controls.Add(this.PathNoesis);
@@ -800,27 +796,6 @@ namespace FFXIBatchApp
 			this.tabPage7.TabIndex = 6;
 			this.tabPage7.Text = "Settings";
 			this.tabPage7.UseVisualStyleBackColor = true;
-			// 
-			// label25
-			// 
-			this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.label25.AutoSize = true;
-			this.label25.Font = new System.Drawing.Font("Segoe UI", 9F);
-			this.label25.Location = new System.Drawing.Point(14, 352);
-			this.label25.Name = "label25";
-			this.label25.Size = new System.Drawing.Size(58, 15);
-			this.label25.TabIndex = 10;
-			this.label25.Text = "Key Delay";
-			// 
-			// SettingsKeyDelay
-			// 
-			this.SettingsKeyDelay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.SettingsKeyDelay.Font = new System.Drawing.Font("Segoe UI", 9F);
-			this.SettingsKeyDelay.Location = new System.Drawing.Point(78, 350);
-			this.SettingsKeyDelay.Name = "SettingsKeyDelay";
-			this.SettingsKeyDelay.Size = new System.Drawing.Size(100, 23);
-			this.SettingsKeyDelay.TabIndex = 9;
-			this.SettingsKeyDelay.Text = "300";
 			// 
 			// label24
 			// 
@@ -1018,8 +993,6 @@ namespace FFXIBatchApp
 		private System.Windows.Forms.TabPage tabPage7;
 		private System.Windows.Forms.Label label24;
 		private System.Windows.Forms.Label label23;
-		private System.Windows.Forms.Label label25;
-		private System.Windows.Forms.TextBox SettingsKeyDelay;
 		private System.Windows.Forms.Button StartZoneRoomsExtract;
 		private System.Windows.Forms.Button OpenOutputFolder;
 		private System.Windows.Forms.Button OpenLogFile;

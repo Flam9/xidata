@@ -695,27 +695,6 @@
     <EmbeddedResource Include="Resources\LookData\LookTable.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DatsetTemplate\Animations_Elvaan_Female.template">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DatsetTemplate\Animations_Elvaan_Male.template">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DatsetTemplate\Animations_Galka.template">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DatsetTemplate\Animations_Hume_Female.template">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DatsetTemplate\Animations_Hume_Male.template">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DatsetTemplate\Animations_Mithra.template">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DatsetTemplate\Animations_Tarutaru.template">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -763,27 +742,6 @@
     <None Include="Resources\bg4.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\DatsetAnims\Anims_Elvaan_Female_Basic.ff11datset">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DatsetAnims\Anims_Elvaan_Male_Basic.ff11datset">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DatsetAnims\Anims_Galka_Basic.ff11datset">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DatsetAnims\Anims_Hume_Female_Basic.ff11datset">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DatsetAnims\Anims_Hume_Male_Basic.ff11datset">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DatsetAnims\Anims_Mithra_Basic.ff11datset">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\DatsetAnims\Anims_Tarutaru_Basic.ff11datset">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
     <None Include="Resources\logo1.png" />
   </ItemGroup>
   <ItemGroup>
