@@ -831,9 +831,19 @@ namespace FFXIBatchApp
 			if (WaitForActiveWindow("Open"))
 			{
 				SendText(source, 400, "Open");
-				SendKey("{ENTER}", 1000, "Open");
+				SendKey("{ENTER}", 1500, "Open");
+
+				// If there are 2 Noesis windows, it's usually an error.
+				if (CountActiveWindows("Noesis") == 2)
+				{
+					SendKey("{ESCAPE}", 300, "");
+					SendKey("{ESCAPE}", 300, "");
+
+					return;
+				}
 
 				// Escape any popups
+				SendKey("{ESCAPE}", 300, "");
 				SendKey("{ESCAPE}", 300, "");
 				SendKey("{ESCAPE}", 300, "");
 				SendKey("{ESCAPE}", 300, "");
@@ -1267,9 +1277,10 @@ namespace FFXIBatchApp
 				string sourceFile = $"{ffxiPath}\\ROM{path}.DAT";
 				string destinationFile = $"{appDirectory}{saveTo}\\{name}.fbx";
 
-				// skip if any fbx files already exist
+				// skip if any files already exist
 				bool fbxFilesFound = Directory.GetFiles($"{appDirectory}{saveTo}\\", "*.fbx").Length > 0;
-				if (fbxFilesFound) { continue; }
+				bool pngFilesFound = Directory.GetFiles($"{appDirectory}{saveTo}\\", "*.png").Length > 0;
+				if (fbxFilesFound || pngFilesFound) { continue; }
 
 				ConsoleLog($"-- Anim Export: {race} - {type} - {name}");
 
