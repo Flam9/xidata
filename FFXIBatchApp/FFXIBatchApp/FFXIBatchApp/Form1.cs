@@ -635,8 +635,12 @@ namespace FFXIBatchApp
 			// A
 			if ((sbyte)e.KeyChar == 97)
 			{
-				ConsoleLog($"[HOOK] (A Key detected!)");
-				StopActiveThread();
+				if (EnableStopHook.Checked)
+				{
+					ConsoleLog($"[HOOK] (A Key detected!)");
+					StopActiveThread();
+				}
+				
 				return;
 			}
 		}

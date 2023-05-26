@@ -93,6 +93,7 @@ namespace FFXIBatchApp
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.OpenOutputFolder = new System.Windows.Forms.Button();
 			this.OpenLogFile = new System.Windows.Forms.Button();
+			this.EnableStopHook = new System.Windows.Forms.CheckBox();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.panel1.SuspendLayout();
 			this.tabControl1.SuspendLayout();
@@ -783,6 +784,7 @@ namespace FFXIBatchApp
 			// 
 			// tabPage7
 			// 
+			this.tabPage7.Controls.Add(this.EnableStopHook);
 			this.tabPage7.Controls.Add(this.label24);
 			this.tabPage7.Controls.Add(this.label23);
 			this.tabPage7.Controls.Add(this.PathNoesis);
@@ -881,6 +883,18 @@ namespace FFXIBatchApp
 			this.OpenLogFile.Text = "Open Log File";
 			this.OpenLogFile.UseVisualStyleBackColor = true;
 			this.OpenLogFile.Click += new System.EventHandler(this.OpenLogFile_Click);
+			// 
+			// EnableStopHook
+			// 
+			this.EnableStopHook.AutoSize = true;
+			this.EnableStopHook.Checked = true;
+			this.EnableStopHook.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.EnableStopHook.Location = new System.Drawing.Point(17, 180);
+			this.EnableStopHook.Name = "EnableStopHook";
+			this.EnableStopHook.Size = new System.Drawing.Size(263, 24);
+			this.EnableStopHook.TabIndex = 9;
+			this.EnableStopHook.Text = "Enable \"A to STOP\" Keyboard Hook";
+			this.EnableStopHook.UseVisualStyleBackColor = true;
 			// 
 			// Form1
 			// 
@@ -996,6 +1010,7 @@ namespace FFXIBatchApp
 		private System.Windows.Forms.Button StartZoneRoomsExtract;
 		private System.Windows.Forms.Button OpenOutputFolder;
 		private System.Windows.Forms.Button OpenLogFile;
+		private System.Windows.Forms.CheckBox EnableStopHook;
 	}
 }
 
